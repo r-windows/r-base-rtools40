@@ -1,0 +1,42 @@
+#-*- Makefile -*-
+
+## Toolchain config
+WIN = @win@
+BINPREF = /mingw32/bin/
+BINPREF64 = /mingw64/bin/
+COMPILED_BY=gcc-8.1.0
+
+## Custom compile flags
+# EOPTS = -Wno-unused-variable -Wno-unused-function -Wno-unused-but-set-variable
+EOPTS = -mtune=generic
+
+# Enable features
+USE_ICU = YES
+USE_LIBCURL = YES
+BUILD_HTML = YES
+USE_ATLAS = NO
+OPENMP = -fopenmp
+
+## Static link flags
+CURL_LIBS = -lcurl -lssh2 -lz -lssl -lcrypto -lgdi32 -lws2_32 -lcrypt32 -lwldap32
+ICU_LIBS = -licuin -licuuc -licudt -lstdc++
+
+## Hardcode paths (not needed in Rtools 4.0)
+# CURL_PATH =
+# CAIRO_HOME =
+# EXT_LIBS =
+# ICU_PATH =
+
+## For building docs/installer
+ISDIR = C:/Program Files (x86)/Inno Setup 5
+MAKEINFO = texi2any
+TEXI2ANY = texi2any
+BUILD_HTML = YES 
+MIKTEX = TRUE
+HOME32 = @home32@
+
+## Fix for MiKTeX removing texi2dvi
+TEXI2DVI = TEXINDEX=@texindex@ texify
+
+## Workaround for msys2?
+#export MSYS2_ENV_CONV_EXCL="R_ARCH"
