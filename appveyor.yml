@@ -1,0 +1,30 @@
+environment:
+  RTOOLS_ARCH: x86_64
+  PfxUri:
+    secure: z+vP1iY4odY07BV7v+yfuA2MBKQFFLGokZoefPhz22evsMT/KnwtB4NgcYNLJheI
+  CertPassword:
+    secure: nwSwtaLCl6Xo5sfqKLvO30aFFGCgjGJ2GKTqS33zkJg=
+  SignTool: C:\Program Files (x86)\Windows Kits\8.1\bin\x64\signtool.exe
+  CertKit: C:\Program Files (x86)\Windows Kits\10\App Certification Kit\appcert.exe
+  KeyFile: C:\jeroen.pfx
+
+install:
+    - ps: Import-Module .\scripts.ps1
+    - ps: InstallInno
+    - ps: InstallMiktex
+    - ps: InstallRtoolsExe
+
+build_script:
+  - C:\rtools40\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/build.sh"
+
+after_build:
+  - ps: Start-FileDownload $env:PfxUri -FileName $env:KeyFile
+  - ps: SignFiles pkg\R-devel-win.exe
+  - ps: Remove-Item –path $env:KeyFile
+
+artifacts:
+  - path: "*.pkg.tar.xz"
+
+on_finish:
+  - 7z a logs.zip *.log
+  - appveyor PushArtifact logs.zip

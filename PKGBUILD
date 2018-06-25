@@ -21,9 +21,9 @@ makedepends=("${MINGW_PACKAGE_PREFIX}-bzip2"
              "${MINGW_PACKAGE_PREFIX}-tk"
              "${MINGW_PACKAGE_PREFIX}-xz"
              "${MINGW_PACKAGE_PREFIX}-zlib"
-			 "texinfo"
-			 "texinfo-tex"
-			 "sed")
+             "texinfo"
+             "texinfo-tex"
+             "sed")
 options=('staticlibs')
 license=("GPL")
 url="https://www.r-project.org/"
@@ -39,13 +39,13 @@ source=("https://stat.ethz.ch/R/daily/R-devel.tar.gz"
 
 sha256sums=('SKIP'
             'SKIP'
-			'SKIP'
             'SKIP'
-			'SKIP'
             'SKIP'
-			'SKIP'
-			'SKIP'
-			'SKIP')
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP')
 
 prepare() {
   cd "${srcdir}/R-devel"
@@ -86,6 +86,7 @@ build() {
 }
 
 check(){
+  cd "${srcdir}/build64/src/gnuwin32"
   make check-all
 }
 
