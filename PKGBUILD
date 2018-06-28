@@ -30,8 +30,9 @@ url="https://www.r-project.org/"
 source=("https://stat.ethz.ch/R/daily/R-devel.tar.gz"
 		https://curl.haxx.se/ca/cacert.pem
 		MkRules.local.in
-        cairo.diff
-        cranextra.diff
+    Renviron.site
+    cairolibs.diff
+    cranextra.diff
 		shortcut.diff
 		trio.diff
 		static-tcl.diff
@@ -45,11 +46,12 @@ sha256sums=('SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
+            'SKIP'
             'SKIP')
 
 prepare() {
   cd "${srcdir}/R-devel"
-  patch -Np1 -i "${srcdir}/cairo.diff"
+  patch -Np1 -i "${srcdir}/cairolibs.diff"
   patch -Np1 -i "${srcdir}/cranextra.diff"
   patch -Np1 -i "${srcdir}/shortcut.diff"
   patch -Np1 -i "${srcdir}/trio.diff"
@@ -80,7 +82,7 @@ build() {
   # Build 32 bit version
   cd "${srcdir}/build32/src/gnuwin32"
   sed -e "s|@win@|32|" -e "s|@texindex@||" -e "s|@home32@||" "${srcdir}/MkRules.local.in" > MkRules.local
-  make 32-bit
+  make 32-bit SHELL='sh -x'
   
   # Build 64 bit + docs and installers
   cd "${srcdir}/build64/src/gnuwin32"
@@ -91,7 +93,7 @@ build() {
 
 check(){
   cd "${srcdir}/build64/src/gnuwin32"
-  make check-all
+  #make check-all
 }
 
 package() {

@@ -1,0 +1,2 @@
+PATH="C:\rtools40\usr\bin;${PATH}"
+BINPREF="/mingw$(WIN)/bin/"
