@@ -56,6 +56,10 @@ prepare() {
   patch -Np1 -i "${srcdir}/static-tcl.diff"
   patch -Np1 -i "${srcdir}/rtools40.diff" 
   cp "${srcdir}/cacert.pem" etc/curl-ca-bundle.crt
+
+  # Temporary solution to hardcode new Rtools location
+  cp ${srcdir}/Renviron.site etc/
+  sed -i 's|ETC_FILES =|ETC_FILES = Renviron.site|' src/gnuwin32/installer/Makefile
   
   # Extra Tcltk scripts go here?
   mkdir -p Tcl/{bin,lib}
