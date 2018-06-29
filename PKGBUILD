@@ -27,16 +27,19 @@ makedepends=("${MINGW_PACKAGE_PREFIX}-bzip2"
 options=('staticlibs')
 license=("GPL")
 url="https://www.r-project.org/"
-source=("https://stat.ethz.ch/R/daily/R-devel.tar.gz"
-		https://curl.haxx.se/ca/cacert.pem
-		MkRules.local.in
+source=(R-source.tar.gz::"https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz"
+    https://curl.haxx.se/ca/cacert.pem
+    MkRules.local.in
     Renviron.site
     cairolibs.diff
     cranextra.diff
-		shortcut.diff
-		trio.diff
-		static-tcl.diff
-		rtools40.diff)
+    shortcut.diff
+    trio.diff
+    static-tcl.diff
+    rtools40.diff)
+
+# Automatic untar fails due to embedded symlinks
+noextract=(R-source.tar.gz)
 
 sha256sums=('SKIP'
             'SKIP'
@@ -50,7 +53,12 @@ sha256sums=('SKIP'
             'SKIP')
 
 prepare() {
-  cd "${srcdir}/R-devel"
+  # Extract tarball with symlink workarounds
+  rm -rf ${srcdir}/R-source
+  mkdir -p ${srcdir}/R-source
+  MSYS="winsymlinks:lnk" tar -xf ${srcdir}/R-source.tar.gz -C ${srcdir}/R-source --strip-components=1
+
+  cd "${srcdir}/R-source"
   patch -Np1 -i "${srcdir}/cairolibs.diff"
   patch -Np1 -i "${srcdir}/cranextra.diff"
   patch -Np1 -i "${srcdir}/shortcut.diff"
@@ -69,8 +77,10 @@ prepare() {
 }
 
 build() {
-  rm -Rf ${srcdir}/build32 && cp -Rf "${srcdir}/R-devel" ${srcdir}/build32
-  rm -Rf ${srcdir}/build64 && cp -Rf "${srcdir}/R-devel" ${srcdir}/build64
+  rm -Rf ${srcdir}/build32
+  rm -Rf ${srcdir}/build64
+  MSYS="winsymlinks:lnk" cp -Rf "${srcdir}/R-source" ${srcdir}/build32
+  MSYS="winsymlinks:lnk" cp -Rf "${srcdir}/R-source" ${srcdir}/build64
   
   # Check that InnoSetup is installed 
   test -f "C:/Program Files (x86)/Inno Setup 5/ISCC.exe"
@@ -79,7 +89,7 @@ build() {
   export PATH="$PATH:/c/progra~1/miktex~1.9/miktex/bin/x64"
   pdflatex --version
   texindex --version
-	
+
   # Build 32 bit version
   cd "${srcdir}/build32/src/gnuwin32"
   sed -e "s|@win@|32|" -e "s|@texindex@||" -e "s|@home32@||" "${srcdir}/MkRules.local.in" > MkRules.local
