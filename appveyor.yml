@@ -19,11 +19,12 @@ build_script:
 
 after_build:
   - ps: Start-FileDownload $env:PfxUri -FileName $env:KeyFile
-  - ps: SignFiles pkg\R-devel-win.exe
+  - ps: SignFiles pkg\mingw-w64-x86_64-r-installer\R-devel-win.exe
   - ps: Remove-Item –path $env:KeyFile
 
 artifacts:
-  - path: "*.pkg.tar.xz"
+  - path: pkg\mingw-w64-x86_64-r-installer\R-devel-win.exe
+    name: R-devel-win.exe
 
 on_finish:
   - 7z a logs.zip *.log
