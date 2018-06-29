@@ -1,8 +1,8 @@
 # Maintainer: Jeroen Ooms <jeroen@berkeley.edu>
 
 _realname=r-installer
-pkgbase=mingw-w64-${_realname}
-pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}"
+pkgbase=${_realname}
+pkgname="${_realname}"
 pkgver=3.5.9000
 pkgrel=1
 pkgdesc="The R Programming Language"
@@ -59,9 +59,10 @@ prepare() {
   patch -Np1 -i "${srcdir}/rtools40.diff" 
   cp "${srcdir}/cacert.pem" etc/curl-ca-bundle.crt
 
-  # Temporary solution to hardcode new Rtools location
+  # Temporary solution to hardcode new Rtools, disable binary pkgs
   cp ${srcdir}/Renviron.site etc/
   sed -i 's|ETC_FILES =|ETC_FILES = Renviron.site|' src/gnuwin32/installer/Makefile
+  sed -i 's|PLATFORM_PKGTYPE|BLABLA|' src/main/Makefile.win
   
   # Extra Tcltk scripts go here?
   mkdir -p Tcl/{bin,lib}
@@ -97,7 +98,6 @@ check(){
 }
 
 package() {
-  cp ${srcdir}/build64/src/gnuwin32/installer/*.exe ${pkgdir}/
   cp ${srcdir}/build64/SVN-REVISION ${pkgdir}/
   cp -r ${srcdir}/build64/src/gnuwin32/cran ${pkgdir}/
 }

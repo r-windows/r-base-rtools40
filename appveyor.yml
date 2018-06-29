@@ -18,13 +18,14 @@ build_script:
   - C:\rtools40\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/build.sh"
 
 after_build:
+  - move src\build64\src\gnuwin32\installer\R-devel-win.exe .
   - ps: Start-FileDownload $env:PfxUri -FileName $env:KeyFile
-  - ps: SignFiles pkg\mingw-w64-x86_64-r-installer\R-devel-win.exe
+  - ps: SignFiles R-devel-win.exe
   - ps: Remove-Item –path $env:KeyFile
 
 artifacts:
-  - path: pkg\mingw-w64-x86_64-r-installer\R-devel-win.exe
-    name: R-devel-win.exe
+  - path: R-devel-win.exe
+    name: installer
 
 on_finish:
   - 7z a logs.zip *.log
