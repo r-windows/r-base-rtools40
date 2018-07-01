@@ -153,3 +153,11 @@ function rtools_bootstrap {
 	bash 'pacman --noconfirm -Scc'
 	bash 'pacman --noconfirm --ask 20 -Syyu'
 }
+
+
+Function SetTimezone {
+	Progress "Setting time zone"
+	tzutil /g
+	tzutil /s "GMT Standard Time"
+	tzutil /g
+}
