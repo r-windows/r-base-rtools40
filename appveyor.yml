@@ -1,4 +1,5 @@
 environment:
+  TZ: Europe/Amsterdam
   RTOOLS_ARCH: x86_64
   PfxUri:
     secure: z+vP1iY4odY07BV7v+yfuA2MBKQFFLGokZoefPhz22evsMT/KnwtB4NgcYNLJheI

@@ -109,7 +109,7 @@ check(){
   #export TCL_LIBRARY=$(cygpath -m ${MINGW_PREFIX}/lib/tcl8.6)
   #export TK_LIBRARY=$(cygpath -m ${MINGW_PREFIX}/lib/tk8.6)
   cd "${srcdir}/build64/src/gnuwin32"
-  make check-all || true
+  make check-all
 }
 
 package() {
