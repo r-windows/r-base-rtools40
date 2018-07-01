@@ -37,7 +37,7 @@ source=(R-source.tar.gz::"https://cran.r-project.org/src/base-prerelease/R-devel
     trio.diff
     static-tcl.diff
     rtools40.diff
-    gettcltk.sh)
+    create-tcltk-bundle.sh)
 
 # Automatic untar fails due to embedded symlinks
 noextract=(R-source.tar.gz)
@@ -65,18 +65,13 @@ prepare() {
   patch -Np1 -i "${srcdir}/cranextra.diff"
   patch -Np1 -i "${srcdir}/shortcut.diff"
   patch -Np1 -i "${srcdir}/trio.diff"
-  patch -Np1 -i "${srcdir}/static-tcl.diff"
+  #patch -Np1 -i "${srcdir}/static-tcl.diff"
   patch -Np1 -i "${srcdir}/rtools40.diff" 
   cp "${srcdir}/cacert.pem" etc/curl-ca-bundle.crt
   mkdir -p Tcl/{bin,bin64,lib,lib64}
 
   # Uncomment if you want to ship the TclTk runtime
-  ${srcdir}/gettcltk.sh "${srcdir}/TclFiles"
-  cp -f ${srcdir}/TclFiles/mingw32/bin/*.dll Tcl/bin
-  cp -f ${srcdir}/TclFiles/mingw64/bin/*.dll Tcl/bin64
-  rm -Rf Tcl/{lib,lib64}
-  cp -Rf ${srcdir}/TclFiles/mingw32/lib Tcl/lib
-  cp -Rf ${srcdir}/TclFiles/mingw64/lib Tcl/lib64
+  ${srcdir}/create-tcltk-bundle.sh
 
   # Temporary solution to hardcode new Rtools, disable binary pkgs
   cp ${srcdir}/Renviron.site etc/
@@ -111,8 +106,8 @@ build() {
 }
 
 check(){
-  export TCL_LIBRARY=$(cygpath -m ${MINGW_PREFIX}/lib/tcl8.6)
-  export TK_LIBRARY=$(cygpath -m ${MINGW_PREFIX}/lib/tk8.6)
+  #export TCL_LIBRARY=$(cygpath -m ${MINGW_PREFIX}/lib/tcl8.6)
+  #export TK_LIBRARY=$(cygpath -m ${MINGW_PREFIX}/lib/tk8.6)
   cd "${srcdir}/build64/src/gnuwin32"
   make check-all || true
 }

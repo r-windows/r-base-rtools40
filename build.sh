@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 cd "$(dirname "$0")"
 
+# Cleanup
+rm -rf src pkg
+
 # Update system
 pacman -Syyu
 pacman -S --needed --noconfirm mingw-w64-{i686,x86_64}-{gcc,gcc-fortran}
