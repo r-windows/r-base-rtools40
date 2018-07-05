@@ -13,10 +13,10 @@ rm -f $(find ${OUTPUT} -name *.a)
 
 # Copy to 'Tcl' directory
 rm -Rf Tcl && mkdir Tcl
-mkdir -p Tcl/{bin,bin64,lib}
+mkdir -p Tcl/{bin,bin64}
 cp ${OUTPUT}/mingw32/bin/*.dll Tcl/bin/
 cp ${OUTPUT}/mingw64/bin/*.dll Tcl/bin64/
-cp -r ${OUTPUT}/mingw32/lib Tcl/bin/
+cp -r ${OUTPUT}/mingw32/lib Tcl/
 cp -r ${OUTPUT}/mingw64/lib Tcl/bin64/
 
 # Cleanup
