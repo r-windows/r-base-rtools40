@@ -35,7 +35,6 @@ source=(R-source.tar.gz::"https://cran.r-project.org/src/base-prerelease/R-devel
     cranextra.diff
     shortcut.diff
     trio.diff
-    static-tcl.diff
     rtools40.diff
     create-tcltk-bundle.sh)
 
@@ -43,7 +42,6 @@ source=(R-source.tar.gz::"https://cran.r-project.org/src/base-prerelease/R-devel
 noextract=(R-source.tar.gz)
 
 sha256sums=('SKIP'
-            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
