@@ -156,7 +156,6 @@ function rtools_bootstrap {
 
 
 Function SetTimezone {
-	Progress "Setting time zone"
 	tzutil /g
 	tzutil /s "GMT Standard Time"
 	tzutil /g

@@ -19,13 +19,13 @@ build_script:
   - C:\rtools40\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/build.sh"
 
 after_build:
-  - move src\build64\src\gnuwin32\installer\R-devel-win.exe .
+  - move src\build64\src\gnuwin32\installer\R-testing-win.exe .
   - ps: Start-FileDownload $env:PfxUri -FileName $env:KeyFile
-  - ps: SignFiles R-devel-win.exe
+  - ps: SignFiles R-testing-win.exe
   - ps: Remove-Item –path $env:KeyFile
 
 artifacts:
-  - path: R-devel-win.exe
+  - path: R-testing-win.exe
     name: installer
 
 on_finish:

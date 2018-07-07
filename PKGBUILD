@@ -75,6 +75,11 @@ prepare() {
   cp ${srcdir}/Renviron.site etc/
   sed -i 's|ETC_FILES =|ETC_FILES = Renviron.site|' src/gnuwin32/installer/Makefile
   sed -i 's|PLATFORM_PKGTYPE|BLABLA|' src/main/Makefile.win
+
+  # Mark as testing build
+  sed -i 's/Under development (unstable)/FOR TESTING RTOOLS ONLY/' VERSION
+  sed -i 's/Unsuffered Consequences/Blame Jeroen/' VERSION-NICK
+  echo 'cat("R-testing")' > src/gnuwin32/fixed/rwver.R
 }
 
 build() {
