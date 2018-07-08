@@ -27,6 +27,8 @@ after_build:
 artifacts:
   - path: R-testing-win.exe
     name: installer
+  - path: r-devel.log
+    name: buildlog
 
 on_finish:
   - 7z a r-devel.zip *.log

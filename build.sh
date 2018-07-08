@@ -11,4 +11,5 @@ pacman -S --needed --noconfirm mingw-w64-{i686,x86_64}-{icu,libtiff,libjpeg,libp
 pacman -S --needed --noconfirm mingw-w64-{i686,x86_64}-{cairo,tk,curl}
 
 # Build package (only once)
-MINGW_INSTALLS="mingw64" makepkg-mingw 2>&1 | tee build.log
+set -o pipefail
+MINGW_INSTALLS="mingw64" makepkg-mingw 2>&1 | tee r-devel.log
