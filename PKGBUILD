@@ -77,7 +77,7 @@ prepare() {
   sed -i 's|PLATFORM_PKGTYPE|BLABLA|' src/main/Makefile.win
 
   # Mark as testing build
-  sed -i 's/Under development (unstable)/FOR TESTING RTOOLS ONLY/' VERSION
+  sed -i 's/(unstable)/(Testing Rtools)/' VERSION
   sed -i 's/Unsuffered Consequences/Blame Jeroen/' VERSION-NICK
   echo 'cat("R-testing")' > src/gnuwin32/fixed/rwver.R
 }
@@ -99,7 +99,8 @@ build() {
   # Build 32 bit version
   cd "${srcdir}/build32/src/gnuwin32"
   sed -e "s|@win@|32|" -e "s|@texindex@||" -e "s|@home32@||" "${srcdir}/MkRules.local.in" > MkRules.local
-  make 32-bit SHELL='sh -x'
+  #make 32-bit SHELL='sh -x'
+  make 32-bit
   
   # Build 64 bit + docs and installers
   cd "${srcdir}/build64/src/gnuwin32"
