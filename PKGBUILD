@@ -65,7 +65,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/cranextra.diff"
   patch -Np1 -i "${srcdir}/shortcut.diff"
   patch -Np1 -i "${srcdir}/trio.diff"
-  patch -Np1 -i "${srcdir}/sqrt.diff"
+  #patch -Np1 -i "${srcdir}/sqrt.diff"
   #patch -Np1 -i "${srcdir}/static-tcl.diff"
   patch -Np1 -i "${srcdir}/rtools40.diff" 
   cp "${srcdir}/cacert.pem" etc/curl-ca-bundle.crt
