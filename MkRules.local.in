@@ -8,7 +8,7 @@ COMPILED_BY=gcc-8.1.0
 
 ## Custom compile flags
 # EOPTS = -Wno-unused-variable -Wno-unused-function -Wno-unused-but-set-variable
-# EOPTS = -mtune=generic
+EOPTS = -mtune=generic
 
 # Enable features
 USE_ICU = YES

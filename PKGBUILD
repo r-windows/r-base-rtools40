@@ -33,6 +33,7 @@ source=(R-source.tar.gz::"https://cran.r-project.org/src/base-prerelease/R-devel
     Renviron.site
     cairolibs.diff
     cranextra.diff
+    fflags.diff
     shortcut.diff
     sqrt.diff
     trio.diff
@@ -43,6 +44,7 @@ source=(R-source.tar.gz::"https://cran.r-project.org/src/base-prerelease/R-devel
 noextract=(R-source.tar.gz)
 
 sha256sums=('SKIP'
+            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -63,6 +65,7 @@ prepare() {
   cd "${srcdir}/R-source"
   patch -Np1 -i "${srcdir}/cairolibs.diff"
   patch -Np1 -i "${srcdir}/cranextra.diff"
+  patch -Np1 -i "${srcdir}/fflags.diff"
   patch -Np1 -i "${srcdir}/shortcut.diff"
   patch -Np1 -i "${srcdir}/trio.diff"
   #patch -Np1 -i "${srcdir}/sqrt.diff"
