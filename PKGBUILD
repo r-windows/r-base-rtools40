@@ -68,7 +68,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/shortcut.diff"
   patch -Np1 -i "${srcdir}/trio.diff"
   patch -Np1 -i "${srcdir}/rtools40.diff" 
-  patch -Np1 -i "${srcdir}/standards.diff" 
+  patch -Np0 -i "${srcdir}/standards.diff" 
   cp "${srcdir}/cacert.pem" etc/curl-ca-bundle.crt
   mkdir -p Tcl/{bin,bin64,lib,lib64}
 
