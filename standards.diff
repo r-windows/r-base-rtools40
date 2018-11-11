@@ -1,0 +1,25 @@
+Index: src/gnuwin32/fixed/etc/Makeconf
+===================================================================
+--- src/gnuwin32/fixed/etc/Makeconf	(revision 75583)
++++ src/gnuwin32/fixed/etc/Makeconf	(working copy)
+@@ -81,14 +81,14 @@
+ CXX11FLAGS = -O2 -Wall $(DEBUGFLAG) @EOPTS@
+ CXX11PICFLAGS =
+ CXX11STD = -std=gnu++11
+-CXX14 = 
+-CXX14FLAGS = 
++CXX14 = $(BINPREF)g++ $(M_ARCH)
++CXX14FLAGS = -O2 -Wall $(DEBUGFLAG) @EOPTS@
+ CXX14PICFLAGS =
+-CXX14STD = 
+-CXX17 = 
+-CXX17FLAGS = 
++CXX14STD = -std=gnu++14
++CXX17 = $(BINPREF)g++ $(M_ARCH)
++CXX17FLAGS = -O2 -Wall $(DEBUGFLAG) @EOPTS@
+ CXX17PICFLAGS =
+-CXX17STD = 
++CXX17STD = -std=gnu++17
+ DYLIB_EXT = .dll
+ DYLIB_LD = $(DLL)
+ DYLIB_LDFLAGS = -shared

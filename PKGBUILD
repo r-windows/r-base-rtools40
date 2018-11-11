@@ -37,6 +37,7 @@ source=(R-source.tar.gz::"https://cran.r-project.org/src/base-prerelease/R-devel
     shortcut.diff
     trio.diff
     rtools40.diff
+    standards.diff
     create-tcltk-bundle.sh)
 
 # Automatic untar fails due to embedded symlinks
@@ -67,6 +68,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/shortcut.diff"
   patch -Np1 -i "${srcdir}/trio.diff"
   patch -Np1 -i "${srcdir}/rtools40.diff" 
+  patch -Np1 -i "${srcdir}/standards.diff" 
   cp "${srcdir}/cacert.pem" etc/curl-ca-bundle.crt
   mkdir -p Tcl/{bin,bin64,lib,lib64}
 
