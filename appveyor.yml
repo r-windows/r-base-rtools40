@@ -34,6 +34,10 @@ on_finish:
   - 7z a r-devel.zip *.log
   - appveyor PushArtifact r-devel.zip
 
+on_failure:
+  - 7z a tests.zip src\build64\tests\*.Rout*
+  - appveyor PushArtifact tests.zip
+
 deploy:
   - provider: BinTray
     username: jeroen
