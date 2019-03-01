@@ -32,7 +32,6 @@ source=(R-source.tar.gz::"https://cran.r-project.org/src/base-prerelease/R-devel
     MkRules.local.in
     Renviron.site
     cairolibs.diff
-    cranextra.diff
     fflags.diff
     shortcut.diff
     trio.diff
@@ -52,7 +51,6 @@ sha256sums=('SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
-            'SKIP'
             'SKIP')
 
 prepare() {
@@ -63,7 +61,6 @@ prepare() {
 
   cd "${srcdir}/R-source"
   patch -Np1 -i "${srcdir}/cairolibs.diff"
-  patch -Np1 -i "${srcdir}/cranextra.diff"
   patch -Np1 -i "${srcdir}/fflags.diff"
   patch -Np1 -i "${srcdir}/shortcut.diff"
   patch -Np1 -i "${srcdir}/trio.diff"
