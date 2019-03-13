@@ -28,6 +28,7 @@ options=('staticlibs')
 license=("GPL")
 url="https://www.r-project.org/"
 source=(R-source.tar.gz::"https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz"
+    https://patch-diff.githubusercontent.com/raw/jeroen/r-source/pull/4.patch
     https://curl.haxx.se/ca/cacert.pem
     MkRules.local.in
     Renviron.site
@@ -51,6 +52,7 @@ sha256sums=('SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
+            'SKIP'
             'SKIP')
 
 prepare() {
@@ -60,6 +62,7 @@ prepare() {
   MSYS="winsymlinks:lnk" tar -xf ${srcdir}/R-source.tar.gz -C ${srcdir}/R-source --strip-components=1
 
   cd "${srcdir}/R-source"
+  patch -Np1 -i "${srcdir}/4.patch"
   patch -Np1 -i "${srcdir}/cairolibs.diff"
   patch -Np1 -i "${srcdir}/fflags.diff"
   patch -Np1 -i "${srcdir}/shortcut.diff"
