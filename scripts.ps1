@@ -15,7 +15,7 @@ $INNO_MIRROR = "http://jrsoftware.org/download.php/is-unicode.exe?site=2"
 # $INNO_MIRROR = "http://files.jrsoftware.org/is/5/innosetup-5.6.1-unicode.exe"
 
 ### MikTex Mirror
-$MIKTEX_MIRROR = "https://miktex.org/download/ctan/systems/win32/miktex/setup/windows-x64/basic-miktex-2.9.7021-x64.exe"
+$MIKTEX_MIRROR = "https://miktex.org/download/ctan/systems/win32/miktex/setup/windows-x64/basic-miktex-2.9.7031-x64.exe"
 
 function CheckExitCode($msg) {
   if ($LastExitCode -ne 0) {
