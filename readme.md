@@ -5,7 +5,12 @@
 
 > Test build of base R with rtools40
 
-This is an experimental build of base R with the [new toolchain](https://github.com/r-windows/rtools-installer) for testing your R packages.
+This is an experimental build of base R with the [new toolchain](https://github.com/r-windows/rtools-installer) for testing your R packages. 
+It automatically gets built and deployed every day to http://dl.bintray.com/rtools/installer/
+
+## How to build yourself
+
+Download this repository and run [`./build.sh`](build.sh) inside the rtools40 shell. Edit [`MkRules.local.in`](MkRules.local.in) to adjust compiler flags. 
 
 ## How to Use
 

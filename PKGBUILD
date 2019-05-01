@@ -51,6 +51,7 @@ sha256sums=('SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
+            'SKIP'
             'SKIP')
 
 prepare() {
@@ -93,7 +94,7 @@ build() {
   test -f "C:/Program Files (x86)/Inno Setup 5/ISCC.exe"
   
   # Put pdflatex on the path (assume Miktex 2.9)
-  export PATH="$PATH:/c/progra~1/miktex~1.9/miktex/bin/x64"
+  export PATH="$PATH:/c/progra~1/MiKTeX 2.9/miktex/bin/x64"
   pdflatex --version
   texindex --version
 
