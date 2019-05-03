@@ -33,7 +33,7 @@ CAIRO_CPPFLAGS = -I/mingw@win@/include/cairo
 # ICU_PATH =
 
 ## For building docs/installer
-ISDIR = C:/Program Files (x86)/Inno Setup 5
+ISDIR = C:/Program Files (x86)/Inno Setup 6
 MAKEINFO = texi2any
 TEXI2ANY = texi2any
 BUILD_HTML = YES 
