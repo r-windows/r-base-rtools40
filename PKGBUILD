@@ -3,7 +3,7 @@
 _realname=r-installer
 pkgbase=${_realname}
 pkgname="${_realname}"
-pkgver=3.5.9000
+pkgver=3.6.9000
 pkgrel=1
 pkgdesc="The R Programming Language"
 arch=('any')
