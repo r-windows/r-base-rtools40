@@ -61,10 +61,7 @@ prepare() {
   MSYS="winsymlinks:lnk" tar -xf ${srcdir}/R-source.tar.gz -C ${srcdir}/R-source --strip-components=1
 
   cd "${srcdir}/R-source"
-  patch -Np1 -i "${srcdir}/cairolibs.diff"
-  patch -Np1 -i "${srcdir}/fflags.diff"
   patch -Np1 -i "${srcdir}/shortcut.diff"
-  patch -Np1 -i "${srcdir}/trio.diff"
   patch -Np1 -i "${srcdir}/rtools40.diff" 
   patch -Np0 -i "${srcdir}/standards.diff" 
   cp "${srcdir}/cacert.pem" etc/curl-ca-bundle.crt
