@@ -31,10 +31,7 @@ source=(R-source.tar.gz::"https://cran.r-project.org/src/base-prerelease/R-devel
     https://curl.haxx.se/ca/cacert.pem
     MkRules.local.in
     Renviron.site
-    cairolibs.diff
-    fflags.diff
     shortcut.diff
-    trio.diff
     rtools40.diff
     standards.diff
     create-tcltk-bundle.sh)
@@ -43,9 +40,6 @@ source=(R-source.tar.gz::"https://cran.r-project.org/src/base-prerelease/R-devel
 noextract=(R-source.tar.gz)
 
 sha256sums=('SKIP'
-            'SKIP'
-            'SKIP'
-            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
