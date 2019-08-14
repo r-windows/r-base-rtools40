@@ -73,6 +73,9 @@ prepare() {
   sed -i 's/(unstable)/(Testing Rtools)/' VERSION
   sed -i 's/Unsuffered Consequences/Blame Jeroen/' VERSION-NICK
   echo 'cat("R-testing")' > src/gnuwin32/fixed/rwver.R
+
+  # Test with 02
+  sed -i 's/O3/O2/g' src/gnuwin32/Makefile
 }
 
 build() {
