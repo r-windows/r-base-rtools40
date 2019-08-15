@@ -82,7 +82,7 @@ build() {
   MSYS="winsymlinks:lnk" cp -Rf "${srcdir}/R-source" ${srcdir}/build64
   
   # Check that InnoSetup is installed 
-  test -f "C:/Program Files (x86)/Inno Setup 5/ISCC.exe"
+  test -f "C:/Program Files (x86)/Inno Setup 6/ISCC.exe"
   
   # Put pdflatex on the path (assume Miktex 2.9)
   export PATH="$PATH:/c/progra~1/MiKTeX 2.9/miktex/bin/x64"
