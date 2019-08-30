@@ -6,13 +6,23 @@
 > Test build of base R with rtools40
 
 This is an experimental build of base R with the [new toolchain](https://github.com/r-windows/rtools-installer) for testing your R packages. 
-It automatically gets built and deployed every day to http://dl.bintray.com/rtools/installer/
+It automatically gets built and deployed every day to http://dl.bintray.com/rtools/installer/.
+
+## Requirements
+
+To build R you only need [rtools40](https://cran.r-project.org/bin/windows/testing/rtools40.html). We no longer use any "extsoft" because all external libs are distributed via pacman. 
+
+If you want to build the full R for Windows installer you also need innosetup and miktex (pdflatex).
 
 ## How to build yourself
 
-Download this repository and run [`./build.sh`](build.sh) inside the rtools40 shell. Edit [`MkRules.local.in`](MkRules.local.in) to adjust compiler flags. 
+Download this repository and optionally edit [`MkRules.local.in`](MkRules.local.in) to adjust compiler flags. Now open the rtools msys2 shell from the Windows start menu.
 
-## How to Use
+Run the  [`./minibuild.sh`](minibuild.sh) inside the rtools40 shell to do a quick single-architecture build + check. This will build the complete 64-bit version of R, but not 32-bit R and also not manuals or the installer.
+
+Alternatively run [`./build.sh`](build.sh) to build the full installer as it appears on CRAN. This involves building both 32 and 64 bit R, as well as pdf manuals and the installer program. This can take about 2 hours and requires you have innosetup and latex installed on your machine (in addition to rtools40).
+
+## Using R-testing 
 
 This build of R has been customized to use the new rtools:
 
