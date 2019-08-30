@@ -9,9 +9,11 @@ WIN=64
 set -e
 set -x
 
-# Make sure we are in the shell
-make --version
+# Put pdflatex on the path (needed only for CMD check)
+export PATH="$PATH:/c/progra~1/MiKTeX 2.9/miktex/bin/x64"
+pdflatex --version
 texindex --version
+make --version
 
 # get absolute paths
 srcdir=$(dirname $(realpath $0))
@@ -26,7 +28,7 @@ pacman -S --needed --noconfirm mingw-w64-{i686,x86_64}-{cairo,tk,curl}
 rm -Rf R-devel
 curl -OL https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
 MSYS="winsymlinks:lnk" tar -xf R-devel.tar.gz
-cd R-devel 
+cd R-devel
 
 # Download a certificate bunle
 curl https://curl.haxx.se/ca/cacert.pem > etc/curl-ca-bundle.crt
@@ -50,3 +52,6 @@ make recommended
 
 # Optional: run checks
 make check-all
+
+# Start RGUI to test
+../../bin/x64/Rgui.exe
