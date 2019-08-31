@@ -46,12 +46,10 @@ sed -i 's|PLATFORM_PKGTYPE|BLABLA|' src/main/Makefile.win
 # Build just the core pieces (no manuals or installer)
 cd "src/gnuwin32"
 sed -e "s|@win@|${WIN}|" -e "s|@texindex@||" -e "s|@home32@||" "${srcdir}/MkRules.local.in" > MkRules.local
-make all
-make cairodevices
-make recommended
+make all cairodevices recommended
 
 # Optional: run checks
 make check-all
 
 # Start RGUI to test
-../../bin/x64/Rgui.exe
+../../bin/x64/Rgui.exe &

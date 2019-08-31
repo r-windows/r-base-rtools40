@@ -16,7 +16,7 @@ install:
     - ps: SetTimezone
 
 build_script:
-  - C:\rtools40\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/build.sh"
+  - C:\rtools40\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/build-installer.sh"
 
 after_build:
   - move src\build64\src\gnuwin32\installer\R-testing-win.exe .

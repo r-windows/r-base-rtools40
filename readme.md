@@ -18,9 +18,9 @@ If you want to build the full R for Windows installer you also need innosetup an
 
 Download this repository and optionally edit [`MkRules.local.in`](MkRules.local.in) to adjust compiler flags. Now open the rtools msys2 shell from the Windows start menu.
 
-Run the  [`./minibuild.sh`](minibuild.sh) inside the rtools40 shell to do a quick single-architecture build + check. This will build the complete 64-bit version of R, but not 32-bit R and also not manuals or the installer.
+Run the  [`./build-devel.sh`](build-devel.sh) inside the rtools40 shell to do a quick single-architecture build + check. This will build the complete 64-bit version of R, but not 32-bit R and also not manuals or the installer.
 
-Alternatively run [`./build.sh`](build.sh) to build the full installer as it appears on CRAN. This involves building both 32 and 64 bit R, as well as pdf manuals and the installer program. This can take about 2 hours and requires you have innosetup and latex installed on your machine (in addition to rtools40).
+Alternatively run [`./build-installer.sh`](build-installer.sh) to build the full installer as it appears on CRAN. This involves building both 32 and 64 bit R, as well as pdf manuals and the installer program. This can take about 2 hours and requires you have innosetup and latex installed on your machine (in addition to rtools40).
 
 ## Using R-testing 
 
