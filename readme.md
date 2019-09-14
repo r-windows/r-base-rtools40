@@ -10,7 +10,7 @@ It automatically gets built and deployed every day to http://dl.bintray.com/rtoo
 
 ## Requirements
 
-To build R you only need [rtools40](https://cran.r-project.org/bin/windows/testing/rtools40.html). We no longer use any "extsoft" because all external libs are distributed via pacman. 
+To build R you only need [rtools40](https://github.com/r-windows/docs/blob/master/rtools40.md). We no longer use any "extsoft" because all external libs are distributed via pacman. 
 
 If you want to build the full R for Windows installer you also need innosetup and miktex (pdflatex).
 
