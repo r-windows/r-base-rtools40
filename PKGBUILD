@@ -16,7 +16,7 @@ makedepends=("${MINGW_PACKAGE_PREFIX}-bzip2"
              "${MINGW_PACKAGE_PREFIX}-libtiff"
              "${MINGW_PACKAGE_PREFIX}-libjpeg"
              "${MINGW_PACKAGE_PREFIX}-libpng"
-             "${MINGW_PACKAGE_PREFIX}-pcre"
+             "${MINGW_PACKAGE_PREFIX}-pcre2"
              "${MINGW_PACKAGE_PREFIX}-tcl"
              "${MINGW_PACKAGE_PREFIX}-tk"
              "${MINGW_PACKAGE_PREFIX}-xz"
@@ -34,12 +34,14 @@ source=(R-source.tar.gz::"https://cran.r-project.org/src/base-prerelease/R-devel
     shortcut.diff
     rtools40.diff
     standards.diff
+    winpcre2.diff
     create-tcltk-bundle.sh)
 
 # Automatic untar fails due to embedded symlinks
 noextract=(R-source.tar.gz)
 
 sha256sums=('SKIP'
+            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -57,7 +59,8 @@ prepare() {
   cd "${srcdir}/R-source"
   patch -Np1 -i "${srcdir}/shortcut.diff"
   patch -Np1 -i "${srcdir}/rtools40.diff" 
-  patch -Np0 -i "${srcdir}/standards.diff" 
+  patch -Np0 -i "${srcdir}/standards.diff"
+  patch -Np0 -i "${srcdir}/winpcre2.diff"
   cp "${srcdir}/cacert.pem" etc/curl-ca-bundle.crt
   mkdir -p Tcl/{bin,bin64,lib,lib64}
 

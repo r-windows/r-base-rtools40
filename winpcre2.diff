@@ -1,0 +1,26 @@
+Index: src/gnuwin32/Makefile
+===================================================================
+--- src/gnuwin32/Makefile	(revision 77195)
++++ src/gnuwin32/Makefile	(working copy)
+@@ -68,7 +68,7 @@
+ 
+ 
+ R-DLLFLAGS = -mwindows
+-LIBEXTRAS = -L"$(EXT_LIBS)"/lib$(R_ARCH) -lpcre -lz -lbz2 -llzma
++LIBEXTRAS = -L"$(EXT_LIBS)"/lib$(R_ARCH) -lpcre2-8 -lz -lbz2 -llzma
+ ifdef USE_ICU
+ LIBEXTRAS += -L"$(ICU_PATH)"/lib$(R_ARCH) $(ICU_LIBS)
+ endif
+Index: src/gnuwin32/fixed/h/config.h
+===================================================================
+--- src/gnuwin32/fixed/h/config.h	(revision 77195)
++++ src/gnuwin32/fixed/h/config.h	(working copy)
+@@ -600,6 +600,8 @@
+ 
+ /* Define if your system has pcre2. */
+ /* #undef HAVE_PCRE2 */
++#define HAVE_PCRE2 1
++#define PCRE2_CODE_UNIT_WIDTH 8
+ 
+ /* Define to 1 if you have the <pcre.h> header file. */
+ /* #undef HAVE_PCRE_H */
