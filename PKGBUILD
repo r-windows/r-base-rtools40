@@ -60,7 +60,11 @@ prepare() {
   patch -Np1 -i "${srcdir}/shortcut.diff"
   patch -Np1 -i "${srcdir}/rtools40.diff" 
   patch -Np0 -i "${srcdir}/standards.diff"
+
+  # Test PCRE2
   patch -Np0 -i "${srcdir}/winpcre2.diff"
+  sed -i 's/PCRE_STATIC/PCRE2_STATIC/g' src/main/Makefile.win
+
   cp "${srcdir}/cacert.pem" etc/curl-ca-bundle.crt
   mkdir -p Tcl/{bin,bin64,lib,lib64}
 
