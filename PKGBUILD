@@ -63,16 +63,18 @@ prepare() {
   # Patches
   patch -Np1 -i "${srcdir}/shortcut.diff"
 
-  # Set default compiler amd std (merge upstream)
+  if [ "$archive" == "r-testing" ]; then
+  # Set default compiler amd std (merge upstream when rtools40 is live)
   patch -Np1 -i "${srcdir}/rtools40.patch"
 
-  # R-testing hacks to override VERSION, fix PATH, disable binary pkgs
+  # Temporary R-testing tweaks to set VERSION, PATH, disable binary pkgs
   cp ${srcdir}/Renviron.site etc/
   sed -i 's|ETC_FILES =|ETC_FILES = Renviron.site|' src/gnuwin32/installer/Makefile
   sed -i 's|PLATFORM_PKGTYPE|NONE|' src/main/Makefile.win
   sed -i 's/(unstable)/(Rtools 4.0)/' VERSION
   sed -i 's/Unsuffered Consequences/Blame Jeroen/' VERSION-NICK
   echo 'cat("R-testing")' > src/gnuwin32/fixed/rwver.R
+  fi
 }
 
 build() {
