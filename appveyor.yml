@@ -8,8 +8,8 @@ environment:
   CertKit: C:\Program Files (x86)\Windows Kits\10\App Certification Kit\appcert.exe
   KeyFile: C:\jeroen.pfx
   matrix:
-  - archive: r-testing
-  - archive: r-devel
+  - version: r-testing
+  - version: r-devel
 
 install:
     - ps: Import-Module .\scripts.ps1
@@ -22,20 +22,20 @@ build_script:
   - C:\rtools40\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/build-installer.sh"
 
 after_build:
-  - move src\build64\src\gnuwin32\installer\R-testing-win.exe .
+  - move "src\build64\src\gnuwin32\installer\%version%-win.exe" .
   - ps: Start-FileDownload $env:PfxUri -FileName $env:KeyFile
   - ps: SignFiles R-testing-win.exe
   - ps: Remove-Item –path $env:KeyFile
 
 artifacts:
-  - path: R-testing-win.exe
+  - path: "%version%-win.exe"
     name: installer
   - path: r-devel.log
     name: buildlog
 
 on_finish:
-  - 7z a r-devel.zip *.log
-  - appveyor PushArtifact r-devel.zip
+  - 7z a buildlog.zip *.log
+  - appveyor PushArtifact buildlog.zip
 
 on_failure:
   - 7z a tests.zip src\build64\tests\*.Rout*
@@ -54,4 +54,4 @@ deploy:
       secure: rKoNWcAgUrOM7QLX4cEvA1iKoY2DR4ps/1PRveq7rJknjQjcpKx8xGs42CJPhDwJ
     on:
       branch: master
-      archive: r-testing
+      version: r-testing
