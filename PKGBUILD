@@ -51,22 +51,25 @@ prepare() {
   rm -rf ${srcdir}/R-source
   mkdir -p ${srcdir}/R-source
   MSYS="winsymlinks:lnk" tar -xf ${srcdir}/R-source.tar.gz -C ${srcdir}/R-source --strip-components=1
-
   cd "${srcdir}/R-source"
-  patch -Np1 -i "${srcdir}/shortcut.diff"
-  patch -Np1 -i "${srcdir}/rtools40.patch" 
+
+  # Ship the CA bundle
   cp "${srcdir}/cacert.pem" etc/curl-ca-bundle.crt
+
+  # Ship the TclTk runtime bundle
   mkdir -p Tcl/{bin,bin64,lib,lib64}
+  ${srcdir}/create-tcltk-bundle.sh  
 
-  # Uncomment if you want to ship the TclTk runtime
-  ${srcdir}/create-tcltk-bundle.sh
+  # Patches
+  patch -Np1 -i "${srcdir}/shortcut.diff"
 
-  # Temporary solution to hardcode new Rtools, disable binary pkgs
+  # Set default compiler amd std (merge upstream)
+  patch -Np1 -i "${srcdir}/rtools40.patch"
+
+  # R-testing hacks to override VERSION, fix PATH, disable binary pkgs
   cp ${srcdir}/Renviron.site etc/
   sed -i 's|ETC_FILES =|ETC_FILES = Renviron.site|' src/gnuwin32/installer/Makefile
-  sed -i 's|PLATFORM_PKGTYPE|BLABLA|' src/main/Makefile.win
-
-  # Mark as testing build
+  sed -i 's|PLATFORM_PKGTYPE|NONE|' src/main/Makefile.win
   sed -i 's/(unstable)/(Rtools 4.0)/' VERSION
   sed -i 's/Unsuffered Consequences/Blame Jeroen/' VERSION-NICK
   echo 'cat("R-testing")' > src/gnuwin32/fixed/rwver.R
