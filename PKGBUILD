@@ -70,7 +70,7 @@ prepare() {
   sed -i 's|PLATFORM_PKGTYPE|BLABLA|' src/main/Makefile.win
 
   # Mark as testing build
-  sed -i 's/(unstable)/(Testing Rtools)/' VERSION
+  sed -i 's/(unstable)/(Rtools 4.0)/' VERSION
   sed -i 's/Unsuffered Consequences/Blame Jeroen/' VERSION-NICK
   echo 'cat("R-testing")' > src/gnuwin32/fixed/rwver.R
 }
