@@ -3,7 +3,7 @@
 _realname=r-installer
 pkgbase=${_realname}
 pkgname="${_realname}"
-pkgver=3.6.9000
+pkgver=4.0
 pkgrel=1
 pkgdesc="The R Programming Language"
 arch=('any')
@@ -32,15 +32,13 @@ source=(R-source.tar.gz::"https://cran.r-project.org/src/base-prerelease/R-devel
     MkRules.local.in
     Renviron.site
     shortcut.diff
-    rtools40.diff
-    standards.diff
+    rtools40.patch
     create-tcltk-bundle.sh)
 
 # Automatic untar fails due to embedded symlinks
 noextract=(R-source.tar.gz)
 
 sha256sums=('SKIP'
-            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -56,8 +54,7 @@ prepare() {
 
   cd "${srcdir}/R-source"
   patch -Np1 -i "${srcdir}/shortcut.diff"
-  patch -Np1 -i "${srcdir}/rtools40.diff" 
-  patch -Np0 -i "${srcdir}/standards.diff" 
+  patch -Np1 -i "${srcdir}/rtools40.patch" 
   cp "${srcdir}/cacert.pem" etc/curl-ca-bundle.crt
   mkdir -p Tcl/{bin,bin64,lib,lib64}
 
