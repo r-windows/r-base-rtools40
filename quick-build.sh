@@ -39,9 +39,8 @@ ${srcdir}/create-tcltk-bundle.sh
 
 # Temporary patches to prevent R from using the old toolchain or binary 
 # packages from CRAN compiled with the old toolchain.
-patch -Np1 -i "${srcdir}/rtools40.diff" 
-patch -Np0 -i "${srcdir}/standards.diff"
-sed -i 's|PLATFORM_PKGTYPE|BLABLA|' src/main/Makefile.win
+patch -Np1 -i "${srcdir}/rtools40.patch" 
+sed -i 's|PLATFORM_PKGTYPE|NONE|' src/main/Makefile.win
 
 # Build just the core pieces (no manuals or installer)
 cd "src/gnuwin32"
