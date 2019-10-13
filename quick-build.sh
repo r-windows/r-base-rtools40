@@ -48,7 +48,7 @@ sed -e "s|@win@|${WIN}|" -e "s|@texindex@||" -e "s|@home32@||" "${srcdir}/MkRule
 make all cairodevices recommended
 
 # Optional: run checks
-make check-all
+# make check-all
 
 # Start RGUI to test
 ../../bin/x64/Rgui.exe &
