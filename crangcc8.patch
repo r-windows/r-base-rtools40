@@ -1,0 +1,12 @@
+diff -aurp R-devel-orig/src/library/utils/R/packages.R R-devel/src/library/utils/R/packages.R
+--- R-devel-orig/src/library/utils/R/packages.R	2019-06-27 18:02:32.000000000 +0200
++++ R-devel/src/library/utils/R/packages.R	2019-11-19 21:17:26.140351100 +0100
+@@ -822,6 +822,7 @@ contrib.url <- function(repos, type = ge
+ 
+     ver <- paste(R.version$major,
+                  strsplit(R.version$minor, ".", fixed=TRUE)[[1L]][1L], sep = ".")
++    ver <- paste0(ver, "gcc8")
+     mac.path <- "macosx"
+     if (substr(type, 1L, 11L) == "mac.binary.") {
+         mac.path <- paste(mac.path, substring(type, 12L), sep = "/")
+Only in R-devel/tests/Pkgs: pkgA

@@ -33,12 +33,14 @@ source=(R-source.tar.gz::"https://cran.r-project.org/src/base-prerelease/R-devel
     Renviron.site
     shortcut.diff
     rtools40.patch
-    create-tcltk-bundle.sh)
+    create-tcltk-bundle.sh
+    crangcc8.patch)
 
 # Automatic untar fails due to embedded symlinks
 noextract=(R-source.tar.gz)
 
 sha256sums=('SKIP'
+            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -67,10 +69,13 @@ prepare() {
   # Set default compiler amd std (merge upstream when rtools40 is live)
   patch -Np1 -i "${srcdir}/rtools40.patch"
 
+  # Set CRAN to temporary repo dir
+  #sed -i 's|PLATFORM_PKGTYPE|NONE|' src/main/Makefile.win
+  patch -Np1 -i "${srcdir}/crangcc8.patch"
+
   # Temporary R-testing tweaks to set VERSION, PATH, disable binary pkgs
   cp ${srcdir}/Renviron.site etc/
   sed -i 's|ETC_FILES =|ETC_FILES = Renviron.site|' src/gnuwin32/installer/Makefile
-  sed -i 's|PLATFORM_PKGTYPE|NONE|' src/main/Makefile.win
   sed -i 's/(unstable)/(Rtools 4.0)/' VERSION
   sed -i 's/Unsuffered Consequences/Blame Jeroen/' VERSION-NICK
   echo 'cat("R-testing")' > src/gnuwin32/fixed/rwver.R
