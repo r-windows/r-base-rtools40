@@ -71,6 +71,12 @@ prepare() {
   # Build gainst openblas
   patch -Np1 -i "${srcdir}/openblas.patch"
 
+  # Use 02 everywhere
+  sed -i 's/O3/O2/g' src/gnuwin32/fixed/etc/Makeconf
+  sed -i 's/O3/O2/g' src/extra/blas/Makefile.win
+  sed -i 's/O3/O2/g' src/nmath/standalone/Makefile.win
+  sed -i 's/O3/O2/g' src/gnuwin32/Makefile
+
   if [ "$rversion" == "R-testing" ]; then
   # Set default compiler amd std (merge upstream when rtools40 is live)
   patch -Np1 -i "${srcdir}/rtools40.patch"
