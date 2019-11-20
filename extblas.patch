@@ -1,0 +1,30 @@
+diff -aurp R-devel-orig/src/extra/blas/Makefile.win R-devel/src/extra/blas/Makefile.win
+--- R-devel-orig/src/extra/blas/Makefile.win	2019-11-20 12:43:22.000000000 +0100
++++ R-devel/src/extra/blas/Makefile.win	2019-11-20 12:54:16.000000000 +0100
+@@ -8,11 +8,11 @@ blas00.o: blas00.c
+ 	$(CC) -O3 -I../../include  -c $< -o $@
+ 
+ ## Rblas.dll imports xerbla_ from R.dll
+-ifeq "$(USE_ATLAS)" "YES"
++ifeq "$(USE_EXTERNAL_BLAS)" "YES"
+ ../../../$(BINDIR)/Rblas.dll: blas00.o ../../gnuwin32/dllversion.o
+ 	@$(ECHO) -------- Building $@ --------
+ 	$(DLL) -shared $(DLLFLAGS) -o $@ $^ Rblas.def \
+-	   -L../../../$(IMPDIR) -lR  -L"$(ATLAS_PATH)" -lf77blas -latlas
++	   -L../../../$(IMPDIR) -lR $(BLAS_LIBS)
+ else
+ ../../../$(BINDIR)/Rblas.dll: blas.o cmplxblas.o ../../gnuwin32/dllversion.o
+ 	@$(ECHO) -------- Building $@ --------
+diff -aurp R-devel-orig/src/gnuwin32/MkRules.rules R-devel/src/gnuwin32/MkRules.rules
+--- R-devel-orig/src/gnuwin32/MkRules.rules	2019-11-20 12:43:22.000000000 +0100
++++ R-devel/src/gnuwin32/MkRules.rules	2019-11-20 12:56:24.000000000 +0100
+@@ -6,7 +6,8 @@ LOCAL_SOFT ?= $(R_HOME)/extsoft
+ EXT_LIBS ?= $(LOCAL_SOFT)
+ G_FLAG ?= -gdwarf-2
+ USE_ATLAS ?= NO
+-ATLAS_PATH ?= 
++USE_EXTERNAL_BLAS ?= $(USE_ATLAS)
++BLAS_LIBS ?= -L"$(ATLAS_PATH)" -lf77blas -latlas
+ MULTI ?=
+ TOOL_PATH ?=
+ BINPREF ?= c:/Rtools/mingw_32/bin/

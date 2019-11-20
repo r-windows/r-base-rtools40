@@ -16,6 +16,7 @@ makedepends=("${MINGW_PACKAGE_PREFIX}-bzip2"
              "${MINGW_PACKAGE_PREFIX}-libtiff"
              "${MINGW_PACKAGE_PREFIX}-libjpeg"
              "${MINGW_PACKAGE_PREFIX}-libpng"
+             "${MINGW_PACKAGE_PREFIX}-lapack"
              "${MINGW_PACKAGE_PREFIX}-pcre"
              "${MINGW_PACKAGE_PREFIX}-tcl"
              "${MINGW_PACKAGE_PREFIX}-tk"
@@ -34,12 +35,14 @@ source=(R-source.tar.gz::"https://cran.r-project.org/src/base-prerelease/R-devel
     shortcut.diff
     rtools40.patch
     create-tcltk-bundle.sh
-    crangcc8.patch)
+    crangcc8.patch
+    extblas.patch)
 
 # Automatic untar fails due to embedded symlinks
 noextract=(R-source.tar.gz)
 
 sha256sums=('SKIP'
+            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -64,6 +67,9 @@ prepare() {
 
   # Patches
   patch -Np1 -i "${srcdir}/shortcut.diff"
+
+  # Build gainst openblas
+  patch -Np1 -i "${srcdir}/extblas.patch"
 
   if [ "$rversion" == "R-testing" ]; then
   # Set default compiler amd std (merge upstream when rtools40 is live)

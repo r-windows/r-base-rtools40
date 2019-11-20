@@ -47,3 +47,7 @@ TEXI2DVI = TEXINDEX=@texindex@ texify
 
 ## Workaround for msys2?
 #export MSYS2_ENV_CONV_EXCL="R_ARCH"
+
+# Build with openblas
+USE_EXTERNAL_BLAS = YES
+BLAS_LIBS = -lcblas -lblas -lgfortran -lquadmath
