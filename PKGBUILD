@@ -28,7 +28,7 @@ options=('staticlibs')
 license=("GPL")
 url="https://www.r-project.org/"
 source=(R-source.tar.gz::"https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz"
-    https://curl.haxx.se/ca/cacert.pem
+    cabundle.patch
     MkRules.local.in
     Renviron.site
     shortcut.diff
@@ -56,7 +56,9 @@ prepare() {
   cd "${srcdir}/R-source"
 
   # Ship the CA bundle
-  cp "${srcdir}/cacert.pem" etc/curl-ca-bundle.crt
+  #cp "${srcdir}/cacert.pem" etc/curl-ca-bundle.crt
+  # Copy CA bundle
+  patch -Np1 -i "${srcdir}/cabundle.patch"
 
   # Ship the TclTk runtime bundle
   mkdir -p Tcl/{bin,bin64,lib,lib64}
