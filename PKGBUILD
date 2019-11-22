@@ -136,6 +136,40 @@ check(){
 }
 
 package() {
-  cp ${srcdir}/build64/SVN-REVISION ${pkgdir}/
-  cp -r ${srcdir}/build64/src/gnuwin32/cran ${pkgdir}/
+  # Derive output locations
+  REVISION=$((read x; echo ${x:10}) < "${srcdir}/build64/SVN-REVISION")
+  CRANDIR="${srcdir}/build64/src/gnuwin32/cran"
+
+  # This sets TARGET variable
+  $(sed -e 's|set|export|' "${CRANDIR}/target.cmd")
+
+  # Copy CRAN release files
+  cp "${srcdir}/build64/SVN-REVISION" "${pkgdir}/SVN-REVISION.${target}"
+  cp "${CRANDIR}/${target}-win.exe" ${pkgdir}/
+  cp "${CRANDIR}/md5sum.txt" ${pkgdir}/md5sum.txt.${target}
+  cp "${CRANDIR}/NEWS.${target}.html" ${pkgdir}/
+  cp "${CRANDIR}/CHANGES.${target}.html" ${pkgdir}/
+  cp "${CRANDIR}/README.${target}" ${pkgdir}/
+
+  # Determine which webpage variant to ship from target (for example "R-3.4.1beta")
+  case "$target" in
+  *devel|*testing)
+    cp "${CRANDIR}/rdevel.html" "${pkgdir}/"
+    ;;
+  *patched|*alpha|*beta|*rc)
+    cp "${CRANDIR}/rpatched.html" "${pkgdir}/"
+    cp "${CRANDIR}/rtest.html" "${pkgdir}/"
+    ;;
+  R-4*)
+    cp "${CRANDIR}/index.html" "${pkgdir}/"
+    cp "${CRANDIR}/md5sum.txt" "${pkgdir}/"
+    cp "${CRANDIR}/rw-FAQ.html" "${pkgdir}/"
+    cp "${CRANDIR}/release.html" "${pkgdir}/"
+    REVISION="$target"
+    ;;
+  *)
+    echo "Unknown release type: $target"
+    exit 1
+    ;;
+  esac
 }

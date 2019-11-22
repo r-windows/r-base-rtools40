@@ -1,6 +1,6 @@
 # Base R Installer
 
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-windows/r-testing?svg=true)](https://ci.appveyor.com/project/jeroen/r-testing) 
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-windows/r-testing?branch=master)](https://ci.appveyor.com/project/jeroen/r-testing) 
 [![Download](https://api.bintray.com/packages/rtools/installer/testing/images/download.svg)](https://dl.bintray.com/rtools/installer/R-testing-win.exe)
 
 > Test build of base R with rtools40
