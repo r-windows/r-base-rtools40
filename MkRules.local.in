@@ -50,4 +50,4 @@ TEXI2DVI = TEXINDEX=@texindex@ texify
 
 # Build with openblas
 USE_EXTERNAL_BLAS = YES
-BLAS_LIBS = -lcblas -lblas -lgfortran -lquadmath
+BLAS_LIBS = -lblas $(FLIBS)
