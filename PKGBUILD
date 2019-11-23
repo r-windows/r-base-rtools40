@@ -145,7 +145,6 @@ package() {
 
   # Copy CRAN release files
   cp "${srcdir}/build64/SVN-REVISION" "${pkgdir}/SVN-REVISION.${target}"
-  cp "${CRANDIR}/${target}-win.exe" ${pkgdir}/
   cp "${CRANDIR}/NEWS.${target}.html" ${pkgdir}/
   cp "${CRANDIR}/CHANGES.${target}.html" ${pkgdir}/
   cp "${CRANDIR}/README.${target}" ${pkgdir}/
