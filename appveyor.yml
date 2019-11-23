@@ -22,14 +22,21 @@ build_script:
   - C:\rtools40\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/full-build.sh"
 
 after_build:
-  - move src\build64\src\gnuwin32\installer\%rversion%-win.exe .
+  - cd pkg\r-installer
+  - call target.cmd
   - ps: Start-FileDownload $env:PfxUri -FileName $env:KeyFile
-  - ps: SignFiles ${env:rversion}-win.exe
+  - ps: SignFiles "${env:target}-win.exe"
   - ps: Remove-Item –path $env:KeyFile
+  - md5sum %target%-win.exe > md5sum.txt.%target%
+  - 7z a ..\..\%target%-win.zip %target%-win.exe md5sum.txt.%target% *.log *.html SVN-REVISION.* README.*
+  - move %target%-win.exe ..\..\
+  - cd ..\..
 
 artifacts:
-  - path: "%rversion%-win.exe"
+  - path: "%target%-win.exe"
     name: installer
+  - path: "%target%-win.zip"
+    name: CRAN Bundle
   - path: r-devel.log
     name: buildlog
 
@@ -46,6 +53,7 @@ deploy:
     version: latest
     publish: true
     override: true
+    artifact: "%target%-win.exe"
     api_key:
       secure: rKoNWcAgUrOM7QLX4cEvA1iKoY2DR4ps/1PRveq7rJknjQjcpKx8xGs42CJPhDwJ
     on:

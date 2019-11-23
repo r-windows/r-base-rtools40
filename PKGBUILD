@@ -146,10 +146,10 @@ package() {
   # Copy CRAN release files
   cp "${srcdir}/build64/SVN-REVISION" "${pkgdir}/SVN-REVISION.${target}"
   cp "${CRANDIR}/${target}-win.exe" ${pkgdir}/
-  cp "${CRANDIR}/md5sum.txt" ${pkgdir}/md5sum.txt.${target}
   cp "${CRANDIR}/NEWS.${target}.html" ${pkgdir}/
   cp "${CRANDIR}/CHANGES.${target}.html" ${pkgdir}/
   cp "${CRANDIR}/README.${target}" ${pkgdir}/
+  cp "${CRANDIR}/target.cmd" ${pkgdir}/
 
   # Determine which webpage variant to ship from target (for example "R-3.4.1beta")
   case "$target" in
