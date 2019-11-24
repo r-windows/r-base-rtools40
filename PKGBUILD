@@ -27,7 +27,9 @@ makedepends=("${MINGW_PACKAGE_PREFIX}-bzip2"
 options=('staticlibs')
 license=("GPL")
 url="https://www.r-project.org/"
-source=(R-source.tar.gz::"${rsource_url}"
+
+# Default source is R-devel (override via $rsource_url)
+source=(R-source.tar.gz::"${rsource_url:-https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz}"
     https://curl.haxx.se/ca/cacert.pem
     MkRules.local.in
     Renviron.site

@@ -71,12 +71,11 @@ deploy:
     revision: "%revision%"
     on:
       branch: master
-      rversion: r-devel
+      cran: true
 
   - provider: Environment
     name: ftp_current
     target: "%target%"
     on:
       branch: master
-      rversion: r-devel
       cran: true
