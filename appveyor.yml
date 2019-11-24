@@ -10,7 +10,7 @@ environment:
   matrix:
     - rsource_url: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
       rversion: r-devel
-      cran: true
+#      cran: true
     - rsource_url: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
       rversion: r-testing
 
