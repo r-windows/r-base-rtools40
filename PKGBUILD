@@ -27,7 +27,7 @@ makedepends=("${MINGW_PACKAGE_PREFIX}-bzip2"
 options=('staticlibs')
 license=("GPL")
 url="https://www.r-project.org/"
-source=(R-source.tar.gz::"https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz"
+source=(R-source.tar.gz::"${rsource_url}"
     https://curl.haxx.se/ca/cacert.pem
     MkRules.local.in
     Renviron.site
@@ -66,19 +66,19 @@ prepare() {
   patch -Np1 -i "${srcdir}/shortcut.diff"
 
   if [ "$rversion" == "R-testing" ]; then
-  # Set default compiler amd std (merge upstream when rtools40 is live)
-  patch -Np1 -i "${srcdir}/rtools40.patch"
+    # Set default compiler amd std (merge upstream when rtools40 is live)
+    patch -Np1 -i "${srcdir}/rtools40.patch"
 
-  # Set CRAN to temporary repo dir
-  #sed -i 's|PLATFORM_PKGTYPE|NONE|' src/main/Makefile.win
-  patch -Np1 -i "${srcdir}/crangcc8.patch"
+    # Set CRAN to temporary repo dir
+    #sed -i 's|PLATFORM_PKGTYPE|NONE|' src/main/Makefile.win
+    patch -Np1 -i "${srcdir}/crangcc8.patch"
 
-  # Temporary R-testing tweaks to set VERSION, PATH, disable binary pkgs
-  cp ${srcdir}/Renviron.site etc/
-  sed -i 's|ETC_FILES =|ETC_FILES = Renviron.site|' src/gnuwin32/installer/Makefile
-  sed -i 's/(unstable)/(Rtools 4.0)/' VERSION
-  sed -i 's/Unsuffered Consequences/Blame Jeroen/' VERSION-NICK
-  echo 'cat("R-testing")' > src/gnuwin32/fixed/rwver.R
+    # Temporary R-testing tweaks to set VERSION, PATH, disable binary pkgs
+    cp ${srcdir}/Renviron.site etc/
+    sed -i 's|ETC_FILES =|ETC_FILES = Renviron.site|' src/gnuwin32/installer/Makefile
+    sed -i 's/(unstable)/(Rtools 4.0)/' VERSION
+    sed -i 's/Unsuffered Consequences/Blame Jeroen/' VERSION-NICK
+    echo 'cat("R-testing")' > src/gnuwin32/fixed/rwver.R
   fi
 }
 
@@ -142,6 +142,9 @@ package() {
 
   # This sets TARGET variable
   $(sed -e 's|set|export|' "${CRANDIR}/target.cmd")
+
+  # Helper for appveyor
+  echo "set revision=${REVISION}" >> "${CRANDIR}/target.cmd"
 
   # Copy CRAN release files
   cp "${srcdir}/build64/SVN-REVISION" "${pkgdir}/SVN-REVISION.${target}"
