@@ -9,10 +9,10 @@ environment:
   KeyFile: C:\jeroen.pfx
   matrix:
     - rsource_url: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
-      rversion: R-testing
-    - rsource_url: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
-      rversion: R-devel
+      rversion: r-devel
       cran: true
+    - rsource_url: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
+      rversion: r-testing
 
 install:
     - ps: Import-Module .\scripts.ps1
@@ -62,7 +62,7 @@ deploy:
       secure: rKoNWcAgUrOM7QLX4cEvA1iKoY2DR4ps/1PRveq7rJknjQjcpKx8xGs42CJPhDwJ
     on:
       branch: master
-      rversion: R-testing
+      rversion: r-testing
 
   - provider: Environment
     name: ftp_archive
@@ -71,12 +71,12 @@ deploy:
     revision: "%revision%"
     on:
       branch: master
-      rversion: R-devel
+      rversion: r-devel
 
   - provider: Environment
     name: ftp_current
     target: "%target%"
     on:
       branch: master
-      rversion: R-devel
+      rversion: r-devel
       cran: true

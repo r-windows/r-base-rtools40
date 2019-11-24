@@ -65,7 +65,7 @@ prepare() {
   # Patches
   patch -Np1 -i "${srcdir}/shortcut.diff"
 
-  if [ "$rversion" == "R-testing" ]; then
+  if [ "$rversion" == "r-testing" ]; then
     # Set default compiler amd std (merge upstream when rtools40 is live)
     patch -Np1 -i "${srcdir}/rtools40.patch"
 
