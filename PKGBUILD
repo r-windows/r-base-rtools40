@@ -36,12 +36,14 @@ source=(R-source.tar.gz::"https://cran.r-project.org/src/base-prerelease/R-devel
     rtools40.patch
     create-tcltk-bundle.sh
     crangcc8.patch
-    openblas.patch)
+    openblas.patch
+    pow32.patch)
 
 # Automatic untar fails due to embedded symlinks
 noextract=(R-source.tar.gz)
 
 sha256sums=('SKIP'
+            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -70,6 +72,7 @@ prepare() {
 
   # Build gainst openblas
   patch -Np1 -i "${srcdir}/openblas.patch"
+  patch -Np1 -i "${srcdir}/pow32.patch"
 
   # Use 02 everywhere
   sed -i 's/O3/O2/g' src/gnuwin32/fixed/etc/Makeconf
