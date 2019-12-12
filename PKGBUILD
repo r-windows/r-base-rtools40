@@ -64,6 +64,11 @@ prepare() {
   mkdir -p Tcl/{bin,bin64,lib,lib64}
   ${srcdir}/create-tcltk-bundle.sh  
 
+  # Use 02 everywhere
+  sed -i 's/O3/O2/g' src/extra/blas/Makefile.win
+  sed -i 's/FLAGS = -O3/FLAGS = -O2/g' src/gnuwin32/Makefile
+  sed -i 's/O3/O2/g' src/nmath/standalone/Makefile.win
+
   # Patches
   patch -Np1 -i "${srcdir}/shortcut.diff"
 

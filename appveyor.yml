@@ -9,10 +9,9 @@ environment:
   KeyFile: C:\jeroen.pfx
   matrix:
     - rsource_url: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
-      rversion: r-devel
-#      cran: true
-    - rsource_url: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
       rversion: r-testing
+    - rsource_url: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
+      rversion: r-devel
 
 install:
     - ps: Import-Module .\scripts.ps1
