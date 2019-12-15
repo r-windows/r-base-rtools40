@@ -101,6 +101,8 @@ build() {
   # Build 32 bit version
   cd "${srcdir}/build32/src/gnuwin32"
   sed -e "s|@win@|32|" -e "s|@texindex@||" -e "s|@home32@||" "${srcdir}/MkRules.local.in" > MkRules.local
+
+  sed -i 's/FFLAGS = -O3/FFLAGS = -O2 -msse2 -mfpmath=sse/g' Makefile
   #make 32-bit SHELL='sh -x'
   make 32-bit
   
