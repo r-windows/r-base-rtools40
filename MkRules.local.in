@@ -10,7 +10,7 @@ BINPREF64 = /mingw64/bin/
 
 ## Custom compile flags
 # EOPTS = -Wno-unused-variable -Wno-unused-function -Wno-unused-but-set-variable
-EOPTS = -mtune=generic
+EOPTS = -mtune=generic -msse2 -mfpmath=sse
 
 # Enable features
 USE_ICU = YES
