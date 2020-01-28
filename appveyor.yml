@@ -27,7 +27,7 @@ build_script:
 after_build:
   - cd pkg\r-installer
   - call target.cmd
-  - move ..\..\src\build64\src\gnuwin32\installer\%target%-win.exe .
+  - move ..\..\src\R-source\src\gnuwin32\installer\%target%-win.exe .
   - ps: Start-FileDownload $env:PfxUri -FileName $env:KeyFile
   - ps: SignFiles "${env:target}-win.exe"
   - ps: Remove-Item –path $env:KeyFile
@@ -45,7 +45,7 @@ artifacts:
     name: buildlog
 
 on_finish:
-  - 7z a tests.zip src\build64\tests\*.Rout* src\build32\tests\*.Rout*
+  - 7z a tests.zip src\R-source\tests\*.Rout* src\build32\tests\*.Rout*
   - appveyor PushArtifact tests.zip
 
 deploy:

@@ -5,7 +5,7 @@ FILES=$(pacman -Sp mingw-w64-{i686,x86_64}-{tcl,tk,bwidget} --cache=".")
 for FILE in $FILES
 do
     curl -OLs $FILE
-	echo "Extracting: $(basename $FILE)"
+	echo "    Extracting: $(basename $FILE)"
 	tar xf $(basename $FILE) -C ${OUTPUT}
 	unlink $(basename $FILE)
 done

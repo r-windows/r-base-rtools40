@@ -51,7 +51,20 @@ sha256sums=('SKIP'
             'SKIP')
 
 prepare() {
+  # Verify that InnoSetup is installed
+  INNOSETUP="C:/Program Files (x86)/Inno Setup 6/ISCC.exe"
+  msg2 "Testing for $INNOSETUP"
+  test -f "$INNOSETUP"
+  "$INNOSETUP" 2>/dev/null || true
+
+  # Put pdflatex on the path (assume Miktex 2.9)
+  msg2 "Checking if pdflatex and texindex can be found..."
+  export PATH="$PATH:/c/progra~1/MiKTeX 2.9/miktex/bin/x64"
+  pdflatex --version
+  texindex --version
+
   # Extract tarball with symlink workarounds
+  msg2 "Extracting R source tarball..."
   rm -rf ${srcdir}/R-source
   mkdir -p ${srcdir}/R-source
   MSYS="winsymlinks:lnk" tar -xf ${srcdir}/R-source.tar.gz -C ${srcdir}/R-source --strip-components=1
@@ -61,6 +74,7 @@ prepare() {
   cp "${srcdir}/cacert.pem" etc/curl-ca-bundle.crt
 
   # Ship the TclTk runtime bundle
+  msg2 "Creating the TclTk runtime bundle"
   mkdir -p Tcl/{bin,bin64,lib,lib64}
   ${srcdir}/create-tcltk-bundle.sh  
 
@@ -85,27 +99,20 @@ prepare() {
 }
 
 build() {
+  msg2 "Copying source files for 32-bit build..."
   rm -Rf ${srcdir}/build32
-  rm -Rf ${srcdir}/build64
   MSYS="winsymlinks:lnk" cp -Rf "${srcdir}/R-source" ${srcdir}/build32
-  MSYS="winsymlinks:lnk" cp -Rf "${srcdir}/R-source" ${srcdir}/build64
-  
-  # Check that InnoSetup is installed 
-  test -f "C:/Program Files (x86)/Inno Setup 6/ISCC.exe"
-  
-  # Put pdflatex on the path (assume Miktex 2.9)
-  export PATH="$PATH:/c/progra~1/MiKTeX 2.9/miktex/bin/x64"
-  pdflatex --version
-  texindex --version
 
   # Build 32 bit version
+  msg2 "Building 32-bit version of base R..."
   cd "${srcdir}/build32/src/gnuwin32"
   sed -e "s|@win@|32|" -e "s|@texindex@||" -e "s|@home32@||" "${srcdir}/MkRules.local.in" > MkRules.local
   #make 32-bit SHELL='sh -x'
   make 32-bit
   
   # Build 64 bit + docs and installers
-  cd "${srcdir}/build64/src/gnuwin32"
+  msg2 "Building 64-bit distribution"
+  cd "${srcdir}/R-source/src/gnuwin32"
   TEXINDEX=$(cygpath -m $(which texindex))  
   sed -e "s|@win@|64|" -e "s|@texindex@|${TEXINDEX}|" -e "s|@home32@|${srcdir}/build32|" "${srcdir}/MkRules.local.in" > MkRules.local
   make distribution
@@ -121,7 +128,7 @@ check(){
   pid=$!
 
   # Run 64 bit checks in foreground
-  cd "${srcdir}/build64/src/gnuwin32"
+  cd "${srcdir}/R-source/src/gnuwin32"
   echo "===== 64 bit checks ====="
   make check-all
 
@@ -139,8 +146,8 @@ check(){
 
 package() {
   # Derive output locations
-  REVISION=$((read x; echo ${x:10}) < "${srcdir}/build64/SVN-REVISION")
-  CRANDIR="${srcdir}/build64/src/gnuwin32/cran"
+  REVISION=$((read x; echo ${x:10}) < "${srcdir}/R-source/SVN-REVISION")
+  CRANDIR="${srcdir}/R-source/src/gnuwin32/cran"
 
   # This sets TARGET variable
   $(sed -e 's|set|export|' "${CRANDIR}/target.cmd")
@@ -149,7 +156,7 @@ package() {
   echo "set revision=${REVISION}" >> "${CRANDIR}/target.cmd"
 
   # Copy CRAN release files
-  cp "${srcdir}/build64/SVN-REVISION" "${pkgdir}/SVN-REVISION.${target}"
+  cp "${srcdir}/R-source/SVN-REVISION" "${pkgdir}/SVN-REVISION.${target}"
   cp "${CRANDIR}/NEWS.${target}.html" ${pkgdir}/
   cp "${CRANDIR}/CHANGES.${target}.html" ${pkgdir}/
   cp "${CRANDIR}/README.${target}" ${pkgdir}/
