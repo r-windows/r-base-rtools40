@@ -111,32 +111,6 @@ build() {
   make distribution
 }
 
-check(){
-  #export TCL_LIBRARY=$(cygpath -m ${MINGW_PREFIX}/lib/tcl8.6)
-  #export TK_LIBRARY=$(cygpath -m ${MINGW_PREFIX}/lib/tk8.6)
-
-  # Run 32bit checks in background
-  cd "${srcdir}/build32/src/gnuwin32"
-  (make check-all > "${srcdir}/build32/check32.log" 2>&1) &
-  pid=$!
-
-  # Run 64 bit checks in foreground
-  cd "${srcdir}/build64/src/gnuwin32"
-  echo "===== 64 bit checks ====="
-  make check-all
-
-  # Waits for 32bit checks to finish and returns exit code from check process.
-  echo "===== 32 bit checks ====="
-  if wait $pid; then
-      cat "${srcdir}/build32/check32.log"
-      echo "32 bit check success!"
-  else
-      cat "${srcdir}/build32/check32.log"
-      echo "32 bit check failure!"
-      exit 1
-  fi
-}
-
 package() {
   # Derive output locations
   REVISION=$((read x; echo ${x:10}) < "${srcdir}/build64/SVN-REVISION")
