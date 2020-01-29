@@ -24,11 +24,13 @@ If you want to build R for Windows yourself, you need:
  - [InnoSetup 6](https://www.jrsoftware.org/isdl.php) (only required to build the full installer)
  - [MikTex 2.9](https://cloud.r-project.org/bin/windows/Rtools/basic-miktex-2.9.7152-x64.exe)
 
-Rtools40 contains a copy of perl and all required system libraries so we no longer need a custom "extsoft" bundle like we did in the past.
+Rtools40 provides perl and all required system libraries so we no longer need any "extsoft" like we did in the past.
 
 ## How to build yourself
 
-Clone this repository. Optionally edit [`MkRules.local.in`](MkRules.local.in) to adjust compiler flags. Now open any rtools msys2 shell from the Windows start menu.
+Clone or [download](https://github.com/r-windows/r-testing/archive/master.zip) this repository. Optionally edit [`MkRules.local.in`](MkRules.local.in) to adjust compiler flags. Now open any rtools msys2 shell from the Windows start menu.
+
+![win10](https://user-images.githubusercontent.com/216319/73364595-1fe28080-42ab-11ea-9858-ac8c660757d6.png)
 
 ### Option 1: quick dev build
 
