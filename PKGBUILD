@@ -36,14 +36,12 @@ source=(R-source.tar.gz::"${rsource_url:-https://cran.r-project.org/src/base-pre
     shortcut.diff
     rtools40.patch
     create-tcltk-bundle.sh
-    crangcc8.patch
-    https://github.com/wch/r-source/commit/b00ef2.diff)
+    crangcc8.patch)
 
 # Automatic untar fails due to embedded symlinks
 noextract=(R-source.tar.gz)
 
 sha256sums=('SKIP'
-            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -82,7 +80,6 @@ prepare() {
 
   # Patches
   patch -Np1 -i "${srcdir}/shortcut.diff"
-  patch -Np1 -i "${srcdir}/b00ef2.diff"
 
   if [ "$rversion" == "r-testing" ]; then
     # Set default compiler amd std (merge upstream when rtools40 is live)
