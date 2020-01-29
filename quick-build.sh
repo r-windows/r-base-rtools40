@@ -21,7 +21,7 @@ srcdir=$(dirname $(realpath $0))
 # Install system libs
 pacman -Syu --noconfirm
 pacman -S --needed --noconfirm mingw-w64-{i686,x86_64}-{gcc,gcc-fortran}
-pacman -S --needed --noconfirm mingw-w64-{i686,x86_64}-{icu,libtiff,libjpeg,libpng,pcre,xz,bzip2,zlib}
+pacman -S --needed --noconfirm mingw-w64-{i686,x86_64}-{icu,libtiff,libjpeg,libpng,pcre2,xz,bzip2,zlib}
 pacman -S --needed --noconfirm mingw-w64-{i686,x86_64}-{cairo,tk,curl}
 
 # Download R-devel and extract (tarball contains recursive symlinks)

@@ -5,18 +5,21 @@
 
 > Test build of base R with rtools40
 
-This is a build of base R with the [new Rtools40 toolchain](https://github.com/r-windows/rtools-installer) for testing your R packages. 
-It automatically gets built and deployed every day to http://dl.bintray.com/rtools/installer/.
+Scripts and patches to build R for Windows with the [new Rtools40 toolchains](https://github.com/r-windows/rtools-installer) for testing your R packages. This version automatically gets built, checked, and deployed every day to http://dl.bintray.com/rtools/installer/.
 
 ## Requirements
 
-To build R you only need [rtools40](https://github.com/r-windows/docs/blob/master/rtools40.md). We no longer use any "extsoft" because all external libs are distributed via pacman. 
+To build a R for Windows you need:
 
-If you want to build the full R for Windows installer you also need innosetup and miktex (pdflatex).
+ - [rtools40](https://github.com/r-windows/docs/blob/master/rtools40.md)
+ - [InnoSetup 6](https://www.jrsoftware.org/isdl.php) (only required to build the full installer)
+ - [MikTex 2.9](https://cloud.r-project.org/bin/windows/Rtools/basic-miktex-2.9.7152-x64.exe)
+
+Rtools40 contains a copy of perl and all required system libraries so we no longer need a custom "extsoft" bundle.
 
 ## How to build yourself
 
-Download this repository and optionally edit [`MkRules.local.in`](MkRules.local.in) to adjust compiler flags. Now open the rtools msys2 shell from the Windows start menu.
+Clone this repository. Optionally edit [`MkRules.local.in`](MkRules.local.in) to adjust compiler flags. Now open any rtools msys2 shell from the Windows start menu.
 
 Run the  [`./quick-build.sh`](quick-build.sh) inside the rtools40 shell to do a quick single-architecture build + check. This will build the complete 64-bit version of R, but not 32-bit R and also not manuals or the installer.
 
