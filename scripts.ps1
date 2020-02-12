@@ -15,8 +15,8 @@ $INNO_MIRROR = "http://www.jrsoftware.org/download.php/is.exe?site=2"
 # $INNO_MIRROR = "http://files.jrsoftware.org/is/5/innosetup-5.6.1-unicode.exe"
 
 ### MikTex Mirror
-#$MIKTEX_MIRROR = "https://miktex.org/download/win/basic-miktex-x64.exe"
-$MIKTEX_MIRROR = "https://cloud.r-project.org/bin/windows/Rtools/basic-miktex-2.9.7152-x64.exe"
+$MIKTEX_MIRROR = "https://miktex.org/download/win/basic-miktex-x64.exe"
+#$MIKTEX_MIRROR = "https://cloud.r-project.org/bin/windows/Rtools/basic-miktex-2.9.7152-x64.exe"
 
 function CheckExitCode($msg) {
   if ($LastExitCode -ne 0) {
@@ -93,11 +93,10 @@ Function InstallMiktex {
   $env:PATH = 'C:\Program Files\MiKTeX 2.9\miktex\bin\x64;' + $env:PATH
 
   Write-Host "Installing CTAN packages"
+  mpm --admin --update
   mpm --admin --install=fancyvrb
   mpm --admin --install=inconsolata 
   mpm --admin --install=epsf
-  mpm --admin --install=mptopdf
-  mpm --admin --install=url
   mpm --admin --install=preprint
 
   # Enable auto-install, just in case
