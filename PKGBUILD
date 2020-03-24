@@ -122,6 +122,9 @@ check(){
   #export TCL_LIBRARY=$(cygpath -m ${MINGW_PREFIX}/lib/tcl8.6)
   #export TK_LIBRARY=$(cygpath -m ${MINGW_PREFIX}/lib/tk8.6)
 
+  # Use cloud mirror for CRAN unit test
+  export R_CRAN_WEB="https://cran.rstudio.com"  
+
   # Run 32bit checks in background
   cd "${srcdir}/build32/src/gnuwin32"
   (make check-all > "${srcdir}/build32/check32.log" 2>&1) &
