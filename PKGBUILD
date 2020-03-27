@@ -81,7 +81,8 @@ prepare() {
   # Patches
   patch -Np1 -i "${srcdir}/shortcut.diff"
 
-  sed -i.bak 's/tempfile("Rprof.out")/"Rprof.out"/g' tests/reg-tests-2.R
+  sed -i.bak 's/tempfile("Rprof.out")/"Rprof.Rout"/g' tests/reg-tests-2.R
+  sed -i.bak 's/tempfile("Rprof.out")/"Rprof.Rout"/g' tests/reg-tests-2.Rout.save
 
   if [ "$rversion" == "r-testing" ]; then
     # Set default compiler amd std (merge upstream when rtools40 is live)
