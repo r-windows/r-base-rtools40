@@ -92,8 +92,8 @@ prepare() {
     # Temporary R-testing tweaks to set VERSION, PATH, disable binary pkgs
     cp ${srcdir}/Renviron.site etc/
     sed -i 's|ETC_FILES =|ETC_FILES = Renviron.site|' src/gnuwin32/installer/Makefile
-    sed -i 's/(unstable)/(Rtools 4.0)/' VERSION
-    sed -i 's/Unsuffered Consequences/Blame Jeroen/' VERSION-NICK
+    sed -i 's/$/ (Rtools40)/' VERSION
+    echo 'Blame Jeroen' > VERSION-NICK
     echo 'cat("R-testing")' > src/gnuwin32/fixed/rwver.R
   fi
 }
