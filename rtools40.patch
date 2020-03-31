@@ -1,6 +1,7 @@
-diff -aurp R-devel/src/gnuwin32/fixed/etc/Makeconf R-devel-orig/src/gnuwin32/fixed/etc/Makeconf
---- R-devel/src/gnuwin32/fixed/etc/Makeconf	2019-08-16 01:15:04.000000000 +0200
-+++ R-devel-orig/src/gnuwin32/fixed/etc/Makeconf	2019-10-12 14:51:35.000000000 +0200
+diff --git a/src/gnuwin32/fixed/etc/Makeconf b/src/gnuwin32/fixed/etc/Makeconf
+index 58eb12b67c..bc858025e3 100644
+--- a/src/gnuwin32/fixed/etc/Makeconf
++++ b/src/gnuwin32/fixed/etc/Makeconf
 @@ -81,14 +81,14 @@ CXX11 = $(BINPREF)g++ $(M_ARCH)
  CXX11FLAGS = -O2 -Wall $(DEBUGFLAG) @EOPTS@
  CXX11PICFLAGS =
@@ -19,12 +20,13 @@ diff -aurp R-devel/src/gnuwin32/fixed/etc/Makeconf R-devel-orig/src/gnuwin32/fix
  CXX17PICFLAGS =
 -CXX17STD = 
 +CXX17STD = -std=gnu++17
- DYLIB_EXT = .dll
- DYLIB_LD = $(DLL)
- DYLIB_LDFLAGS = -shared
-diff -aurp R-devel/src/gnuwin32/installer/Makefile R-devel-orig/src/gnuwin32/installer/Makefile
---- R-devel/src/gnuwin32/installer/Makefile	2019-09-28 01:15:03.000000000 +0200
-+++ R-devel-orig/src/gnuwin32/installer/Makefile	2019-10-12 14:50:57.000000000 +0200
+ CXX17 = 
+ CXX20FLAGS = 
+ CXX20PICFLAGS =
+diff --git a/src/gnuwin32/installer/Makefile b/src/gnuwin32/installer/Makefile
+index 297b1c22d5..3172090779 100644
+--- a/src/gnuwin32/installer/Makefile
++++ b/src/gnuwin32/installer/Makefile
 @@ -103,7 +103,7 @@ imagedir:
  	(cd ..; $(MAKE) --no-print-directory PKGDIR=. pkgclean-windlgs)
  	$(CP) -pR ../windlgs $(RPREFIX)/src/library
