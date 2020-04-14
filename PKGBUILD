@@ -81,10 +81,10 @@ prepare() {
   # Patches
   patch -Np1 -i "${srcdir}/shortcut.diff"
 
-  if [ "$rversion" == "r-testing" ]; then
-    # Set default compiler amd std (merge upstream when rtools40 is live)
-    patch -Np1 -i "${srcdir}/rtools40.patch"
+  # Set default compiler amd std (merge upstream when rtools40 is live)
+  patch -Np1 -i "${srcdir}/rtools40.patch"
 
+  if [ "$rversion" == "r-testing" ]; then
     # Set CRAN to temporary repo dir
     #sed -i 's|PLATFORM_PKGTYPE|NONE|' src/main/Makefile.win
     patch -Np1 -i "${srcdir}/crangcc8.patch"

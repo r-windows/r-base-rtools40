@@ -9,9 +9,11 @@ environment:
   KeyFile: C:\jeroen.pfx
   matrix:
     - rsource_url: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
-      rversion: r-testing    
+      rversion: r-patched
     - rsource_url: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
       rversion: r-devel
+    - rsource_url: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
+      rversion: r-testing
 #      cran: true
 
 install:
@@ -72,6 +74,7 @@ deploy:
     on:
       branch: master
       cran: true
+    artifact: "%target%-win.zip"
 
   - provider: Environment
     name: ftp_current
@@ -79,3 +82,4 @@ deploy:
     on:
       branch: master
       cran: true
+    artifact: "%target%-win.zip"
