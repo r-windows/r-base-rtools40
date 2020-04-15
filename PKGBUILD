@@ -158,7 +158,6 @@ package() {
   # Copy CRAN release files
   cp "${srcdir}/R-source/SVN-REVISION" "${pkgdir}/SVN-REVISION.${target}"
   cp "${CRANDIR}/NEWS.${target}.html" ${pkgdir}/
-  cp "${CRANDIR}/CHANGES.${target}.html" ${pkgdir}/
   cp "${CRANDIR}/README.${target}" ${pkgdir}/
   cp "${CRANDIR}/target.cmd" ${pkgdir}/
 

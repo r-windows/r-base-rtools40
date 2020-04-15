@@ -1,25 +1,22 @@
-# Base R Installer
+# Base R Installer [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-windows/r-installer?branch=master)](https://ci.appveyor.com/project/jeroen/r-installer) 
 
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-windows/r-testing?branch=master)](https://ci.appveyor.com/project/jeroen/r-testing) 
-[![Download](https://api.bintray.com/packages/rtools/installer/testing/images/download.svg)](https://dl.bintray.com/rtools/installer/R-testing-win.exe)
+> Building base R using rtools40
 
-> Test build of base R with rtools40
-
-Scripts to build R for Windows with the new [Rtools40](https://github.com/r-windows/rtools-installer) toolchains. This version automatically gets built, checked, and deployed every day to [bintray](http://dl.bintray.com/rtools/installer/).
+Scripts to build R for Windows with the new [Rtools40](https://github.com/r-windows/rtools-installer) toolchains. This version automatically gets built, checked, and deployed every day to [CRAN](https://cran.r-project.org/bin/windows/base/rdevel.html).
 
 ## Build requirements
 
-If you want to build R for Windows yourself, you need:
+To build R for Windows yourself, you need:
 
  - [rtools40](https://github.com/r-windows/docs/blob/master/rtools40.md)
  - [InnoSetup 6](https://www.jrsoftware.org/isdl.php) (only required to build the full installer)
  - [MikTex 2.9](https://cloud.r-project.org/bin/windows/Rtools/basic-miktex-2.9.7152-x64.exe)
 
-Rtools40 provides perl and all required system libraries so we no longer need any "extsoft" like we did in the past.
+Rtools40 provides perl and all required system libraries so we no longer need any "extsoft" file like we did in the past.
 
 ## How to build yourself
 
-Clone or [download](https://github.com/r-windows/r-testing/archive/master.zip) this repository. Optionally edit [`MkRules.local.in`](MkRules.local.in) to adjust compiler flags. Now open any rtools msys2 shell from the Windows start menu.
+Clone or [download](https://github.com/r-windows/r-installer/archive/master.zip) this repository. Optionally edit [`MkRules.local.in`](MkRules.local.in) to adjust compiler flags. Now open any rtools msys2 shell from the Windows start menu.
 
 ![win10](https://user-images.githubusercontent.com/216319/73364595-1fe28080-42ab-11ea-9858-ac8c660757d6.png)
 
