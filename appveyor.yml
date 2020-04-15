@@ -10,11 +10,12 @@ environment:
   matrix:
     - rsource_url: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
       rversion: r-patched
+      cran: true
     - rsource_url: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
       rversion: r-devel
+      cran: true
     - rsource_url: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
       rversion: r-testing
-#      cran: true
 
 install:
     - ps: Import-Module .\scripts.ps1
