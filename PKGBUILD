@@ -35,14 +35,12 @@ source=(R-source.tar.gz::"${rsource_url:-https://cran.r-project.org/src/base-pre
     Renviron.site
     shortcut.diff
     rtools40.patch
-    create-tcltk-bundle.sh
-    crangcc8.patch)
+    create-tcltk-bundle.sh)
 
 # Automatic untar fails due to embedded symlinks
 noextract=(R-source.tar.gz)
 
 sha256sums=('SKIP'
-            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -87,7 +85,6 @@ prepare() {
   if [ "$rversion" == "r-testing" ]; then
     # Set CRAN to temporary repo dir
     #sed -i 's|PLATFORM_PKGTYPE|NONE|' src/main/Makefile.win
-    patch -Np1 -i "${srcdir}/crangcc8.patch"
 
     # Temporary R-testing tweaks to set VERSION, PATH, disable binary pkgs
     cp ${srcdir}/Renviron.site etc/
