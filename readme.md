@@ -7,15 +7,6 @@
 
 Scripts to build R for Windows with the new [Rtools40](https://github.com/r-windows/rtools-installer) toolchains. This version automatically gets built, checked, and deployed every day to [bintray](http://dl.bintray.com/rtools/installer/).
 
-## Using R-testing
-
-This build of R has been customized to use the new rtools:
-
- - Automatically put rtools40 compilers on the `PATH` for building packages.
- - Packages are installed in `~/R/win-library/testing` by default.
-
-It should work out of the box, and not conflict with other R installations.
-
 ## Build requirements
 
 If you want to build R for Windows yourself, you need:
