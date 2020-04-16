@@ -123,24 +123,28 @@ check(){
   export R_CRAN_WEB="https://cran.rstudio.com"  
 
   # Run 32bit checks in background
-  cd "${srcdir}/build32/src/gnuwin32"
-  (make check-all > "${srcdir}/build32/check32.log" 2>&1) &
-  pid=$!
+  if [ "$rversion" == "r-testing" ]; then
+    cd "${srcdir}/build32/src/gnuwin32"
+    (make check-all > "${srcdir}/build32/check32.log" 2>&1) &
+    pid=$!
+  fi
 
   # Run 64 bit checks in foreground
   cd "${srcdir}/R-source/src/gnuwin32"
   echo "===== 64 bit checks ====="
   make check-all
 
-  # Waits for 32bit checks to finish and returns exit code from check process.
-  echo "===== 32 bit checks ====="
-  if wait $pid; then
-      cat "${srcdir}/build32/check32.log"
-      echo "32 bit check success!"
-  else
-      cat "${srcdir}/build32/check32.log"
-      echo "32 bit check failure!"
-      exit 1
+  if [ "$rversion" == "r-testing" ]; then
+    # Waits for 32bit checks to finish and returns exit code from check process.
+    echo "===== 32 bit checks ====="
+    if wait $pid; then
+        cat "${srcdir}/build32/check32.log"
+        echo "32 bit check success!"
+    else
+        cat "${srcdir}/build32/check32.log"
+        echo "32 bit check failure!"
+        exit 1
+    fi
   fi
 }
 
