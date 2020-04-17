@@ -34,7 +34,7 @@ source=(R-source.tar.gz::"${rsource_url:-https://cran.r-project.org/src/base-pre
     MkRules.local.in
     Renviron.site
     shortcut.diff
-    rtools40.patch
+    https://patch-diff.githubusercontent.com/raw/r-devel/r-svn/pull/2.patch
     create-tcltk-bundle.sh)
 
 # Automatic untar fails due to embedded symlinks
@@ -80,7 +80,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/shortcut.diff"
 
   # Set default compiler amd std (merge upstream when rtools40 is live)
-  patch -Np1 -i "${srcdir}/rtools40.patch"
+  patch -Np1 -i "${srcdir}/2.patch"
 
   if [ "$rversion" == "r-testing" ]; then
     # Set CRAN to temporary repo dir
