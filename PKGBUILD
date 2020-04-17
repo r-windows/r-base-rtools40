@@ -120,7 +120,7 @@ check(){
   #export TK_LIBRARY=$(cygpath -m ${MINGW_PREFIX}/lib/tk8.6)
 
   # Use cloud mirror for CRAN unit test
-  export R_CRAN_WEB="https://cran.rstudio.com"  
+  #export R_CRAN_WEB="https://cran.rstudio.com"
 
   # Run 32bit checks in background
   if [ "$rversion" == "r-testing" ]; then
