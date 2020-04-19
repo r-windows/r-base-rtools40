@@ -37,10 +37,8 @@ curl https://curl.haxx.se/ca/cacert.pem > etc/curl-ca-bundle.crt
 mkdir -p Tcl/{bin,bin64,lib,lib64}
 ${srcdir}/create-tcltk-bundle.sh
 
-# Temporary patches to prevent R from using the old toolchain or binary 
-# packages from CRAN compiled with the old toolchain.
-patch -Np1 -i "${srcdir}/rtools40.patch" 
-sed -i 's|PLATFORM_PKGTYPE|NONE|' src/main/Makefile.win
+# Add custom patches here:
+# patch -Np1 -i "${srcdir}/myfix.patch" 
 
 # Build just the core pieces (no manuals or installer)
 cd "src/gnuwin32"

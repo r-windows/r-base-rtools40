@@ -32,17 +32,13 @@ url="https://www.r-project.org/"
 source=(R-source.tar.gz::"${rsource_url:-https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz}"
     https://curl.haxx.se/ca/cacert.pem
     MkRules.local.in
-    Renviron.site
     shortcut.diff
-    https://patch-diff.githubusercontent.com/raw/r-devel/r-svn/pull/2.patch
     create-tcltk-bundle.sh)
 
 # Automatic untar fails due to embedded symlinks
 noextract=(R-source.tar.gz)
 
 sha256sums=('SKIP'
-            'SKIP'
-            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -79,18 +75,8 @@ prepare() {
   # Patches
   patch -Np1 -i "${srcdir}/shortcut.diff"
 
-  # Set default compiler amd std (merge upstream when rtools40 is live)
-  if [ "$rversion" != "r-devel" ]; then
-  patch -Np1 -i "${srcdir}/2.patch" || true
-  fi
-
+  # Special build to test patches
   if [ "$rversion" == "r-testing" ]; then
-    # Set CRAN to temporary repo dir
-    #sed -i 's|PLATFORM_PKGTYPE|NONE|' src/main/Makefile.win
-
-    # Temporary R-testing tweaks to set VERSION, PATH, disable binary pkgs
-    cp ${srcdir}/Renviron.site etc/
-    sed -i 's|ETC_FILES =|ETC_FILES = Renviron.site|' src/gnuwin32/installer/Makefile
     sed -i 's/$/ (Rtools40)/' VERSION
     echo 'Blame Jeroen' > VERSION-NICK
     echo 'cat("R-testing")' > src/gnuwin32/fixed/rwver.R

@@ -14,5 +14,5 @@ pacman -S --needed --noconfirm mingw-w64-{i686,x86_64}-{cairo,tk,curl}
 set -o pipefail
 MINGW_INSTALLS="mingw64" makepkg-mingw 2>&1 | tee r-devel.log
 
-# Drop a copy in root
+# Copy installer to root directory
 cp -f src/R-source/src/gnuwin32/installer/*.exe .
