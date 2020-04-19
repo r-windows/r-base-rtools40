@@ -80,7 +80,9 @@ prepare() {
   patch -Np1 -i "${srcdir}/shortcut.diff"
 
   # Set default compiler amd std (merge upstream when rtools40 is live)
-  patch -Np1 -i "${srcdir}/2.patch"
+  if [ "$rversion" != "r-devel" ]; then
+  patch -Np1 -i "${srcdir}/2.patch" || true
+  fi
 
   if [ "$rversion" == "r-testing" ]; then
     # Set CRAN to temporary repo dir
