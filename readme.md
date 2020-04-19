@@ -1,4 +1,4 @@
-# Base R Installer [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-windows/r-installer?branch=master)](https://ci.appveyor.com/project/jeroen/r-installer) 
+# Base R Installer [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-windows/r-base?branch=master)](https://ci.appveyor.com/project/jeroen/r-base)
 
 > Building base R using rtools40
 
@@ -8,15 +8,15 @@ Scripts to build R for Windows using [Rtools40](https://github.com/r-windows/rto
 
 To build R for Windows yourself, you need:
 
- - [rtools40](https://github.com/r-windows/docs/blob/master/rtools40.md)
+ - [rtools40](https://cran.r-project.org/bin/windows/Rtools/)
  - [InnoSetup 6](https://www.jrsoftware.org/isdl.php) (only required to build the full installer)
- - [MikTex 2.9](https://cloud.r-project.org/bin/windows/Rtools/basic-miktex-2.9.7152-x64.exe)
+ - [MikTex 2.9](https://miktex.org/download)
 
 Rtools40 provides perl and all required system libraries so we no longer need any special "extsoft" file like we did in the past.
 
 ## How to build yourself
 
-Clone or [download](https://github.com/r-windows/r-installer/archive/master.zip) this repository. Optionally edit [`MkRules.local.in`](MkRules.local.in) to adjust compiler flags. Now open any rtools msys2 shell from the Windows start menu.
+Clone or [download](https://github.com/r-windows/r-base/archive/master.zip) this repository. Optionally edit [`MkRules.local.in`](MkRules.local.in) to adjust compiler flags. Now open any rtools msys2 shell from the Windows start menu.
 
 ![win10](https://user-images.githubusercontent.com/216319/73364595-1fe28080-42ab-11ea-9858-ac8c660757d6.png)
 
