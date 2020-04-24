@@ -114,14 +114,10 @@ package() {
   # This sets TARGET variable
   $(sed -e 's|set|export|' "${CRANDIR}/target.cmd")
 
-  # Helper for appveyor
-  echo "set revision=${REVISION}" >> "${CRANDIR}/target.cmd"
-
   # Copy CRAN release files
   cp "${srcdir}/R-source/SVN-REVISION" "${pkgdir}/SVN-REVISION.${target}"
   cp "${CRANDIR}/NEWS.${target}.html" ${pkgdir}/
   cp "${CRANDIR}/README.${target}" ${pkgdir}/
-  cp "${CRANDIR}/target.cmd" ${pkgdir}/
 
   # Determine which webpage variant to ship from target (for example "R-3.4.1beta")
   case "$target" in
@@ -144,4 +140,8 @@ package() {
     exit 1
     ;;
   esac
+
+  # Helper for appveyor script
+  echo "set revision=${REVISION}" >> "${CRANDIR}/target.cmd"
+  cp "${CRANDIR}/target.cmd" ${pkgdir}/
 }
