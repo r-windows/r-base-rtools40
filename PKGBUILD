@@ -3,7 +3,7 @@
 _realname=r-installer
 pkgbase=${_realname}
 pkgname="${_realname}"
-pkgver=4.0
+pkgver=4.0.9000
 pkgrel=1
 pkgdesc="The R Programming Language"
 arch=('any')
@@ -72,15 +72,8 @@ prepare() {
   mkdir -p Tcl/{bin,bin64,lib,lib64}
   ${srcdir}/create-tcltk-bundle.sh  
 
-  # Patches
+  # Add your patches here
   patch -Np1 -i "${srcdir}/shortcut.diff"
-
-  # Special build to test patches
-  if [ "$rversion" == "r-testing" ]; then
-    sed -i 's/$/ (Rtools40)/' VERSION
-    echo 'Blame Jeroen' > VERSION-NICK
-    echo 'cat("R-testing")' > src/gnuwin32/fixed/rwver.R
-  fi
 }
 
 build() {
@@ -104,36 +97,13 @@ build() {
 }
 
 check(){
-  #export TCL_LIBRARY=$(cygpath -m ${MINGW_PREFIX}/lib/tcl8.6)
-  #export TK_LIBRARY=$(cygpath -m ${MINGW_PREFIX}/lib/tk8.6)
-
   # Use cloud mirror for CRAN unit test
   #export R_CRAN_WEB="https://cran.rstudio.com"
-
-  # Run 32bit checks in background
-  if [ "$rversion" == "r-testing" ]; then
-    cd "${srcdir}/build32/src/gnuwin32"
-    (make check-all > "${srcdir}/build32/check32.log" 2>&1) &
-    pid=$!
-  fi
 
   # Run 64 bit checks in foreground
   cd "${srcdir}/R-source/src/gnuwin32"
   echo "===== 64 bit checks ====="
   make check-all
-
-  if [ "$rversion" == "r-testing" ]; then
-    # Waits for 32bit checks to finish and returns exit code from check process.
-    echo "===== 32 bit checks ====="
-    if wait $pid; then
-        cat "${srcdir}/build32/check32.log"
-        echo "32 bit check success!"
-    else
-        cat "${srcdir}/build32/check32.log"
-        echo "32 bit check failure!"
-        exit 1
-    fi
-  fi
 }
 
 package() {

@@ -14,8 +14,6 @@ environment:
     - rsource_url: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
       rversion: r-devel
       cran: true
-    - rsource_url: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
-      rversion: r-testing
 
 install:
     - ps: Import-Module .\scripts.ps1
@@ -65,7 +63,7 @@ deploy:
       secure: rKoNWcAgUrOM7QLX4cEvA1iKoY2DR4ps/1PRveq7rJknjQjcpKx8xGs42CJPhDwJ
     on:
       branch: master
-      rversion: r-testing
+      rversion: r-devel
 
   - provider: Environment
     name: ftp_archive
