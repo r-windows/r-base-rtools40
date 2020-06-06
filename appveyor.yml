@@ -8,11 +8,8 @@ environment:
   CertKit: C:\Program Files (x86)\Windows Kits\10\App Certification Kit\appcert.exe
   KeyFile: C:\jeroen.pfx
   matrix:
-    - rsource_url: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
-      rversion: r-patched
-      cran: true
-    - rsource_url: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
-      rversion: r-devel
+    - rsource_url: https://cran.r-project.org/src/base/R-4/R-4.0.1.tar.gz
+      rversion: r-release
       cran: true
 
 install:
@@ -71,7 +68,6 @@ deploy:
     archive: "%rversion%"
     revision: "%revision%"
     on:
-      branch: master
       cran: true
     artifact: "%target%-win.zip"
 
@@ -79,6 +75,5 @@ deploy:
     name: ftp_current
     target: "%target%"
     on:
-      branch: master
       cran: true
     artifact: "%target%-win.zip"
