@@ -30,6 +30,7 @@ url="https://www.r-project.org/"
 
 # Default source is R-devel (override via $rsource_url)
 source=(R-source.tar.gz::"${rsource_url:-https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz}"
+    https://patch-diff.githubusercontent.com/raw/r-devel/r-svn/pull/4.patch
     https://curl.haxx.se/ca/cacert.pem
     MkRules.local.in
     shortcut.diff
@@ -39,6 +40,7 @@ source=(R-source.tar.gz::"${rsource_url:-https://cran.r-project.org/src/base-pre
 noextract=(R-source.tar.gz)
 
 sha256sums=('SKIP'
+            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -74,6 +76,7 @@ prepare() {
 
   # Add your patches here
   patch -Np1 -i "${srcdir}/shortcut.diff"
+  patch --binary -Np1 -i "${srcdir}/4.patch"
 }
 
 build() {
@@ -94,16 +97,6 @@ build() {
   TEXINDEX=$(cygpath -m $(which texindex))  
   sed -e "s|@win@|64|" -e "s|@texindex@|${TEXINDEX}|" -e "s|@home32@|${srcdir}/build32|" "${srcdir}/MkRules.local.in" > MkRules.local
   make distribution
-}
-
-check(){
-  # Use cloud mirror for CRAN unit test
-  #export R_CRAN_WEB="https://cran.rstudio.com"
-
-  # Run 64 bit checks in foreground
-  cd "${srcdir}/R-source/src/gnuwin32"
-  echo "===== 64 bit checks ====="
-  make check-all
 }
 
 package() {
