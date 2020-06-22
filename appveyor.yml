@@ -8,11 +8,8 @@ environment:
   CertKit: C:\Program Files (x86)\Windows Kits\10\App Certification Kit\appcert.exe
   KeyFile: C:\jeroen.pfx
   matrix:
-    - rsource_url: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
-      rversion: r-patched
-      cran: true
-    - rsource_url: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
-      rversion: r-devel
+    - rsource_url: https://cran.r-project.org/src/base/R-4/R-4.0.2.tar.gz
+      rversion: r-release
       cran: true
 
 install:
@@ -50,24 +47,6 @@ on_finish:
   - appveyor PushArtifact tests.zip
 
 deploy:
-  - provider: Environment
-    name: ftp_archive
-    target: "%target%"
-    archive: "%rversion%"
-    revision: "%revision%"
-    on:
-      branch: master
-      cran: true
-    artifact: "%target%-win.zip"
-
-  - provider: Environment
-    name: ftp_current
-    target: "%target%"
-    on:
-      branch: master
-      cran: true
-    artifact: "%target%-win.zip"
-
   - provider: BinTray
     username: jeroen
     subject: rtools
@@ -82,3 +61,19 @@ deploy:
     on:
       branch: master
       rversion: r-devel
+
+  - provider: Environment
+    name: ftp_archive
+    target: "%target%"
+    archive: "%rversion%"
+    revision: "%revision%"
+    on:
+      cran: true
+    artifact: "%target%-win.zip"
+
+  - provider: Environment
+    name: ftp_current
+    target: "%target%"
+    on:
+      cran: true
+    artifact: "%target%-win.zip"
