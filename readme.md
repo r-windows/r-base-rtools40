@@ -10,7 +10,7 @@ To build R for Windows yourself, you need:
 
  - [rtools40](https://cran.r-project.org/bin/windows/Rtools/)
  - [InnoSetup 6](https://www.jrsoftware.org/isdl.php) (only required to build the full installer)
- - [MikTex 2.9](https://miktex.org/download)
+ - [MikTex](https://miktex.org/download)
 
 Rtools40 provides perl and all required system libraries so we no longer need any special "extsoft" file like we did in the past.
 
