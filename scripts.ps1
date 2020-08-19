@@ -9,10 +9,9 @@ $RTOOLS_MIRROR = "https://dl.bintray.com/rtools/installer/"
 # $RTOOLS_MIRROR = "https://ftp.opencpu.org/archive/rtools/4.0/"
 
 ### InnoSetup Mirror
-$INNO_MIRROR = "http://www.jrsoftware.org/download.php/is.exe?site=2"
-# $INNO_MIRROR = "https://github.com/jrsoftware/issrc/releases/download/is-5_6_1/innosetup-5.6.1-unicode.exe"
-# $INNO_MIRROR = "https://mlaan2.home.xs4all.nl/ispack/innosetup-5.6.1-unicode.exe"
-# $INNO_MIRROR = "http://files.jrsoftware.org/is/5/innosetup-5.6.1-unicode.exe"
+# $INNO_MIRROR = "http://www.jrsoftware.org/download.php/is.exe?site=2"
+### Latest InnoSetup does not support Vista anymore
+$INNO_MIRROR = "http://files.jrsoftware.org/is/6/innosetup-6.0.4.exe"
 
 ### MikTex Mirror
 $MIKTEX_MIRROR = "https://miktex.org/download/win/basic-miktex-x64.exe"
