@@ -31,7 +31,7 @@ MSYS="winsymlinks:lnk" tar -xf R-devel.tar.gz
 cd R-devel
 
 # Download a certificate bunle
-curl https://curl.haxx.se/ca/cacert.pem > etc/curl-ca-bundle.crt
+curl https://curl.se/ca/cacert.pem > etc/curl-ca-bundle.crt
 
 # Create the TCL bundle required by tcltk package
 mkdir -p Tcl/{bin,bin64,lib,lib64}
