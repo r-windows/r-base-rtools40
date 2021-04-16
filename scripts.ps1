@@ -4,7 +4,7 @@ $RTOOLS_ZIP = "rtools40-${RTOOLS_ARCH}.7z"
 $RTOOLS_EXE = "rtools40-${RTOOLS_ARCH}.exe"
 
 ### Use for bootstrapping installation
-$RTOOLS_MIRROR = "https://dl.bintray.com/rtools/installer/"
+$RTOOLS_MIRROR = "https://ftp.opencpu.org/rtools/installer/"
 # $RTOOLS_MIRROR = "https://cloud.r-project.org/bin/windows/Rtools/"
 # $RTOOLS_MIRROR = "https://ftp.opencpu.org/archive/rtools/4.0/"
 

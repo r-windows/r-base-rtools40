@@ -46,7 +46,7 @@ artifacts:
     name: buildlog
 
 on_finish:
-  - 7z a tests.zip src\R-source\tests\*.Rout* src\build32\tests\*.Rout*
+  - 7z a tests.zip src\R-source\tests\*.Rout* src\build32\tests\*.Rout* C:\Users\appveyor\AppData\Local\MiKTeX\miktex\log\texify.log
   - appveyor PushArtifact tests.zip
 
 deploy:
