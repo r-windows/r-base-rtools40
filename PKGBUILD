@@ -53,7 +53,7 @@ prepare() {
 
   # Put pdflatex on the path (assume Miktex 2.9)
   msg2 "Checking if pdflatex and texindex can be found..."
-  export PATH="$PATH:/c/progra~1/MiKTeX/miktex/bin/x64:/c/progra~1/MiKTeX 2.9/miktex/bin/x64"
+  export PATH="$PATH:$HOME/AppData/Local/Programs/MiKTeX/miktex/bin/x64:/c/progra~1/MiKTeX/miktex/bin/x64:/c/progra~1/MiKTeX 2.9/miktex/bin/x64"
   pdflatex --version
   texindex --version
 
