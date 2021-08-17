@@ -3,7 +3,7 @@
 _realname=r-installer
 pkgbase=${_realname}
 pkgname="${_realname}"
-pkgver=4.0.9000
+pkgver=4.1.9000
 pkgrel=1
 pkgdesc="The R Programming Language"
 arch=('any')
@@ -77,22 +77,28 @@ prepare() {
 }
 
 build() {
+ # CRAN has stopped supporting 32-bit for R-4.2
+if [ "$rversion" == "r-devel" ]; then
+ echo "Skip building 32-bit for R-devel"
+else
+  build32="${srcdir}/build32"
   msg2 "Copying source files for 32-bit build..."
-  rm -Rf ${srcdir}/build32
-  MSYS="winsymlinks:lnk" cp -Rf "${srcdir}/R-source" ${srcdir}/build32
+  rm -Rf ${build32}
+  MSYS="winsymlinks:lnk" cp -Rf "${srcdir}/R-source" ${build32}
 
   # Build 32 bit version
   msg2 "Building 32-bit version of base R..."
-  cd "${srcdir}/build32/src/gnuwin32"
+  cd "${build32}/src/gnuwin32"
   sed -e "s|@win@|32|" -e "s|@texindex@||" -e "s|@home32@||" "${srcdir}/MkRules.local.in" > MkRules.local
   #make 32-bit SHELL='sh -x'
   make 32-bit
+fi
   
   # Build 64 bit + docs and installers
   msg2 "Building 64-bit distribution"
   cd "${srcdir}/R-source/src/gnuwin32"
   TEXINDEX=$(cygpath -m $(which texindex))  
-  sed -e "s|@win@|64|" -e "s|@texindex@|${TEXINDEX}|" -e "s|@home32@|${srcdir}/build32|" "${srcdir}/MkRules.local.in" > MkRules.local
+  sed -e "s|@win@|64|" -e "s|@texindex@|${TEXINDEX}|" -e "s|@home32@|${build32}|" "${srcdir}/MkRules.local.in" > MkRules.local
   make distribution
 }
 
