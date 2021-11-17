@@ -5,6 +5,9 @@ WIN = @win@
 BINPREF = /mingw32/bin/
 BINPREF64 = /mingw64/bin/
 
+## Produce a debug build
+# DEBUG = 1
+
 ## Add custom compile flags here
 # EOPTS = -mtune=generic
 
