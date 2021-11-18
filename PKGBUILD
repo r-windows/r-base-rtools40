@@ -80,7 +80,7 @@ build() {
  # CRAN has stopped supporting 32-bit for R-4.2
 if [ "$rversion" == "r-devel" ]; then
   echo "Skip building 32-bit for R-devel"
-  echo EOPTS="" >> MkRules.local.in
+  #echo EOPTS="" >> MkRules.local.in
 else
   build32="${srcdir}/build32"
   msg2 "Copying source files for 32-bit build..."
