@@ -19,6 +19,7 @@ makedepends=("${MINGW_PACKAGE_PREFIX}-bzip2"
              "${MINGW_PACKAGE_PREFIX}-pcre2"
              "${MINGW_PACKAGE_PREFIX}-tcl"
              "${MINGW_PACKAGE_PREFIX}-tk"
+             "${MINGW_PACKAGE_PREFIX}-libwebp"
              "${MINGW_PACKAGE_PREFIX}-xz"
              "${MINGW_PACKAGE_PREFIX}-zlib"
              "texinfo"
@@ -33,12 +34,14 @@ source=(R-source.tar.gz::"${rsource_url:-https://cran.r-project.org/src/base-pre
     https://curl.se/ca/cacert.pem
     MkRules.local.in
     shortcut.diff
-    create-tcltk-bundle.sh)
+    create-tcltk-bundle.sh
+    https://www.r-project.org/nosvn/winutf8/ucrt3/R-devel-81177-4844.diff)
 
 # Automatic untar fails due to embedded symlinks
 noextract=(R-source.tar.gz)
 
 sha256sums=('SKIP'
+            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -74,6 +77,9 @@ prepare() {
 
   # Add your patches here
   patch -Np1 -i "${srcdir}/shortcut.diff"
+
+  # Custom changes from TK (not everything may apply...)
+  patch -p0 --binary -i "${srcdir}/R-devel-81177-4844.diff" || true
 }
 
 build() {
