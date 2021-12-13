@@ -2,16 +2,12 @@
 # Minimal example of building R for Windows.
 # You must run this script inside the rtools40 shell.
 # This builds and checks a single architecture (no manuals or installer)
-# Used below: set this to 32 or 64 
-WIN=64
-
-# Run script safely and emit some verbose output
 set -e
 set -x
 
 # Put pdflatex on the path (needed only for CMD check)
 export PATH="$PATH:/c/progra~1/MiKTeX/miktex/bin/x64:/c/progra~1/MiKTeX 2.9/miktex/bin/x64"
-pdflatex --version
+pdflatex --version || true
 texindex --version
 make --version
 
@@ -20,9 +16,7 @@ srcdir=$(dirname $(realpath $0))
 
 # Install system libs
 pacman -Syu --noconfirm
-pacman -S --needed --noconfirm mingw-w64-{i686,x86_64}-{gcc,gcc-fortran}
-pacman -S --needed --noconfirm mingw-w64-{i686,x86_64}-{icu,libtiff,libjpeg,libpng,pcre2,xz,bzip2,zlib}
-pacman -S --needed --noconfirm mingw-w64-{i686,x86_64}-{cairo,tk,curl}
+pacman -S --needed --noconfirm mingw-w64-ucrt-x86_64-{gcc,gcc-fortran,icu,libtiff,libjpeg,libpng,pcre2,xz,bzip2,zlib,cairo,tk,curl,libwebp}
 
 # Download R-devel and extract (tarball contains recursive symlinks)
 rm -Rf R-devel
@@ -34,15 +28,15 @@ cd R-devel
 curl https://curl.se/ca/cacert.pem > etc/curl-ca-bundle.crt
 
 # Create the TCL bundle required by tcltk package
-mkdir -p Tcl/{bin,bin64,lib,lib64}
-${srcdir}/create-tcltk-bundle.sh
+mkdir -p Tcl/{bin,lib}
+${srcdir}/create-tcltk-bundle-ucrt.sh
 
 # Add custom patches here:
 # patch -Np1 -i "${srcdir}/myfix.patch" 
 
 # Build just the core pieces (no manuals or installer)
 cd "src/gnuwin32"
-sed -e "s|@win@|${WIN}|" -e "s|@texindex@||" -e "s|@home32@||" "${srcdir}/MkRules.local.in" > MkRules.local
+sed -e "s|mingw|ucrt|g" -e "s|@win@|64|" -e "s|@texindex@||" -e "s|@home32@||" "${srcdir}/MkRules.local.in" > MkRules.local
 make all cairodevices recommended
 
 # Optional: run checks
