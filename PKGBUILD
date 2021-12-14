@@ -16,6 +16,7 @@ makedepends=("${MINGW_PACKAGE_PREFIX}-bzip2"
              "${MINGW_PACKAGE_PREFIX}-libtiff"
              "${MINGW_PACKAGE_PREFIX}-libjpeg"
              "${MINGW_PACKAGE_PREFIX}-libpng"
+             "${MINGW_PACKAGE_PREFIX}-libwebp"
              "${MINGW_PACKAGE_PREFIX}-pcre2"
              "${MINGW_PACKAGE_PREFIX}-tcl"
              "${MINGW_PACKAGE_PREFIX}-tk"
@@ -33,12 +34,14 @@ source=(R-source.tar.gz::"${rsource_url:-https://cran.r-project.org/src/base-pre
     https://curl.se/ca/cacert.pem
     MkRules.local.in
     shortcut.diff
-    create-tcltk-bundle.sh)
+    create-tcltk-bundle.sh
+    create-tcltk-bundle-ucrt.sh)
 
 # Automatic untar fails due to embedded symlinks
 noextract=(R-source.tar.gz)
 
 sha256sums=('SKIP'
+            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -69,8 +72,12 @@ prepare() {
 
   # Ship the TclTk runtime bundle
   msg2 "Creating the TclTk runtime bundle"
+if [ "$rversion" == "r-devel" ]; then
+  ${srcdir}/create-tcltk-bundle-ucrt.sh
+else
   mkdir -p Tcl/{bin,bin64,lib,lib64}
   ${srcdir}/create-tcltk-bundle.sh  
+fi
 
   # Add your patches here
   patch -Np1 -i "${srcdir}/shortcut.diff"
@@ -81,6 +88,7 @@ build() {
 if [ "$rversion" == "r-devel" ]; then
   echo "Skip building 32-bit for R-devel"
   #echo EOPTS="" >> MkRules.local.in
+  sed -i "s|mingw|ucrt|g" ${srcdir}/MkRules.local.in
 else
   build32="${srcdir}/build32"
   msg2 "Copying source files for 32-bit build..."

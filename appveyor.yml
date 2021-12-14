@@ -8,9 +8,9 @@ environment:
   CertKit: C:\Program Files (x86)\Windows Kits\10\App Certification Kit\appcert.exe
   KeyFile: C:\jeroen.pfx
   matrix:
-    - rsource_url: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
-      rversion: r-patched
-      cran: true
+#    - rsource_url: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
+#      rversion: r-patched
+#      cran: true
     - rsource_url: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
       rversion: r-devel
       cran: true
