@@ -89,6 +89,7 @@ if [ "$rversion" == "r-devel" ]; then
   echo "Skip building 32-bit for R-devel"
   #echo EOPTS="" >> MkRules.local.in
   sed -i "s|mingw|ucrt|g" ${srcdir}/MkRules.local.in
+  sed -i "s|BINPREF|#BINPREF|g" ${srcdir}/MkRules.local.in
 else
   build32="${srcdir}/build32"
   msg2 "Copying source files for 32-bit build..."
