@@ -6,7 +6,7 @@ set -e
 set -x
 
 # Put pdflatex on the path (needed only for CMD check)
-export PATH="$PATH:/c/progra~1/MiKTeX/miktex/bin/x64:/c/progra~1/MiKTeX 2.9/miktex/bin/x64"
+export PATH="$PATH:$HOME/AppData/Local/Programs/MiKTeX/miktex/bin/x64:/c/progra~1/MiKTeX/miktex/bin/x64:/c/progra~1/MiKTeX 2.9/miktex/bin/x64"
 pdflatex --version || true
 texindex --version
 make --version
