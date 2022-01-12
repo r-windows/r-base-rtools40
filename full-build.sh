@@ -5,6 +5,8 @@ cd "$(dirname "$0")"
 rm -rf src pkg
 
 # Update system
+echo 'Server = https://ftp.opencpu.org/rtools/ucrt64/' > /etc/pacman.d/rtools.ucrt64
+echo 'SigLevel = Never' >> /etc/pacman.d/rtools.ucrt64
 pacman -Syyu --noconfirm
 if [ "$rversion" == "r-devel" ]; then
 export MINGW_ARCH="ucrt64"
