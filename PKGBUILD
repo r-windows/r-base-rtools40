@@ -76,7 +76,7 @@ prepare() {
   msg2 "Creating the TclTk runtime bundle"
 if [ "$rversion" == "r-devel" ]; then
   ${srcdir}/create-tcltk-bundle-ucrt.sh
-  patch -Np1 -i "${srcdir}/bd2fd.diff"
+  patch -Np1 -i "${srcdir}/bd2fd.diff" || true
 else
   mkdir -p Tcl/{bin,bin64,lib,lib64}
   ${srcdir}/create-tcltk-bundle.sh  
