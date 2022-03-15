@@ -35,14 +35,12 @@ source=(R-source.tar.gz::"${rsource_url:-https://cran.r-project.org/src/base-pre
     MkRules.local.in
     shortcut.diff
     create-tcltk-bundle.sh
-    create-tcltk-bundle-ucrt.sh
-    https://github.com/r-devel/r-svn/commit/bd2fd.diff)
+    create-tcltk-bundle-ucrt.sh)
 
 # Automatic untar fails due to embedded symlinks
 noextract=(R-source.tar.gz)
 
 sha256sums=('SKIP'
-            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -76,7 +74,6 @@ prepare() {
   msg2 "Creating the TclTk runtime bundle"
 if [ "$rversion" == "r-devel" ]; then
   ${srcdir}/create-tcltk-bundle-ucrt.sh
-  patch -Np1 -i "${srcdir}/bd2fd.diff" || true
 else
   mkdir -p Tcl/{bin,bin64,lib,lib64}
   ${srcdir}/create-tcltk-bundle.sh  
