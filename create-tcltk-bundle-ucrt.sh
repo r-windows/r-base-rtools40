@@ -4,7 +4,7 @@ OUTPUT=$(mktemp -d)
 FILES=$(pacman -Sp mingw-w64-ucrt-x86_64-{tcl,tk,bwidget,tktable} --cache=".")
 for FILE in $FILES
 do
-    curl -OLs $FILE
+  curl -OLs $FILE
   echo "    Extracting: $(basename $FILE)"
   tar xf $(basename $FILE) -C ${OUTPUT}
   unlink $(basename $FILE)

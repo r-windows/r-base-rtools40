@@ -3,7 +3,7 @@
 _realname=r-installer
 pkgbase=${_realname}
 pkgname="${_realname}"
-pkgver=4.1.9000
+pkgver=4.2.9000
 pkgrel=1
 pkgdesc="The R Programming Language"
 arch=('any')
@@ -34,14 +34,12 @@ source=(R-source.tar.gz::"${rsource_url:-https://cran.r-project.org/src/base-pre
     https://curl.se/ca/cacert.pem
     MkRules.local.in
     shortcut.diff
-    create-tcltk-bundle.sh
     create-tcltk-bundle-ucrt.sh)
 
 # Automatic untar fails due to embedded symlinks
 noextract=(R-source.tar.gz)
 
 sha256sums=('SKIP'
-            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -72,51 +70,23 @@ prepare() {
 
   # Ship the TclTk runtime bundle
   msg2 "Creating the TclTk runtime bundle"
-if [ "$rversion" == "r-devel" ]; then
   ${srcdir}/create-tcltk-bundle-ucrt.sh
-else
-  mkdir -p Tcl/{bin,bin64,lib,lib64}
-  ${srcdir}/create-tcltk-bundle.sh  
-fi
 
   # Add your patches here
   patch -Np1 -i "${srcdir}/shortcut.diff"
 }
 
 build() {
- # CRAN has stopped supporting 32-bit for R-4.2
-if [ "$rversion" == "r-devel" ]; then
-  echo "Skip building 32-bit for R-devel"
-  #echo EOPTS="" >> MkRules.local.in
-  sed -i "s|mingw|ucrt|g" ${srcdir}/MkRules.local.in
-  sed -i "s|BINPREF|#BINPREF|g" ${srcdir}/MkRules.local.in
-else
-  build32="${srcdir}/build32"
-  msg2 "Copying source files for 32-bit build..."
-  rm -Rf ${build32}
-  MSYS="winsymlinks:lnk" cp -Rf "${srcdir}/R-source" ${build32}
-
-  # Build 32 bit version
-  msg2 "Building 32-bit version of base R..."
-  cd "${build32}/src/gnuwin32"
-  sed -e "s|@win@|32|" -e "s|@texindex@||" -e "s|@home32@||" "${srcdir}/MkRules.local.in" > MkRules.local
-  #make 32-bit SHELL='sh -x'
-  make 32-bit
-fi
-  
   # Build 64 bit + docs and installers
   msg2 "Building 64-bit distribution"
   cd "${srcdir}/R-source/src/gnuwin32"
   TEXINDEX=$(cygpath -m $(which texindex))  
-  sed -e "s|@win@|64|" -e "s|@texindex@|${TEXINDEX}|" -e "s|@home32@|${build32}|" "${srcdir}/MkRules.local.in" > MkRules.local
+  sed -e "s|@texindex@|${TEXINDEX}|" "${srcdir}/MkRules.local.in" > MkRules.local
   make distribution
 }
 
 check(){
-  # Use cloud mirror for CRAN unit test
   #export R_CRAN_WEB="https://cran.rstudio.com"
-
-  # Run 64 bit checks in foreground
   cd "${srcdir}/R-source/src/gnuwin32"
   echo "===== 64 bit checks ====="
   make check-all
