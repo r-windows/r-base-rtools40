@@ -75,8 +75,10 @@ function InnoBuild($iss){
 }
 
 function SignFiles($files) {
-  & $env:SignTool sign /f $env:KeyFile /p "$env:CertPassword" /tr http://sha256timestamp.ws.symantec.com/sha256/timestamp /td sha256 /fd sha256 $files
+  (New-Object Net.WebClient).DownloadFile(${env:PfxUri}, 'C:\jeroen.pfx')
+  & $env:SignTool sign /f C:\jeroen.pfx /p "$env:CertPassword" /tr http://sha256timestamp.ws.symantec.com/sha256/timestamp /td sha256 /fd sha256 $files
   CheckExitCode "Failed to sign files."
+  Remove-Item 'C:\jeroen.pfx'
 }
 
 Function InstallMiktex {

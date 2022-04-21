@@ -5,15 +5,7 @@ environment:
   CertPassword:
     secure: nwSwtaLCl6Xo5sfqKLvO30aFFGCgjGJ2GKTqS33zkJg=
   SignTool: C:\Program Files (x86)\Windows Kits\8.1\bin\x64\signtool.exe
-  CertKit: C:\Program Files (x86)\Windows Kits\10\App Certification Kit\appcert.exe
-  KeyFile: C:\jeroen.pfx
-  matrix:
-    - rsource_url: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
-      rversion: r-devel
-      cran: true
-    - rsource_url: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
-      rversion: r-patched
-      cran: true
+  build_installer: true
 
 install:
     - ps: Import-Module .\scripts.ps1
@@ -23,28 +15,14 @@ install:
     - ps: SetTimezone
 
 build_script:
-  - C:\rtools40\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/full-build.sh"
+  - C:\rtools40\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/build.sh"
 
 after_build:
-  - cd pkg\r-installer
-  - call target.cmd
-  - move ..\..\src\R-source\src\gnuwin32\installer\%target%-win.exe .
-  - ps: Start-FileDownload $env:PfxUri -FileName $env:KeyFile
-  - ps: SignFiles "${env:target}-win.exe"
-  - ps: Remove-Item –path $env:KeyFile
-  - md5sum %target%-win.exe > md5sum.txt.%target%
-  - 7z a ..\..\%target%-win.zip %target%-win.exe md5sum.txt.%target% *.log *.html SVN-REVISION.* README.*
-  - move %target%-win.exe ..\..\
-  - cd ..\..
+  - ps: SignFiles "R-devel-win.exe"
 
 artifacts:
-  - path: "%target%-win.exe"
+  - path: "R-devel-win.exe"
     name: installer
-  - path: "%target%-win.zip"
-    name: CRAN Bundle
-  - path: r-devel.log
+  - path: build.log
     name: buildlog
 
-on_finish:
-  - 7z a tests.zip src\R-source\src\nmath\standalone\check.log src\R-source\tests\*.Rout* C:\Users\appveyor\AppData\Local\MiKTeX\miktex\log\texify.log
-  - appveyor PushArtifact tests.zip

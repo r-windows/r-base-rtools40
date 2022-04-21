@@ -1,0 +1,53 @@
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron:  '30 1 * * *'
+
+name: Build installers
+
+jobs:
+  build:
+    runs-on: windows-2022
+    name: Build r-${{ matrix.src }} installer
+    strategy:
+      fail-fast: false
+      matrix:
+        src: [ 'devel', 'patched' ]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Install Miktex
+        run: |
+          Import-Module .\scripts.ps1
+          SetTimezone
+          InstallMiktex
+
+      - name: Download and build r-${{ matrix.src }}
+        run: $(cygpath ${GITHUB_WORKSPACE})/build.sh
+        shell: c:\rtools40\usr\bin\bash.exe --login {0}
+        id: build
+        env:
+          version: ${{matrix.src}}
+          build_installer: true
+
+      - name: Sign installer
+        run: |
+          Import-Module .\scripts.ps1
+          SignFiles ${{steps.build.outputs.installer}}
+        env:
+          PfxUri: ${{ secrets.PFXURI }}
+          CertPassword: ${{ secrets.CERTPASSWORD }}
+          SignTool: 'C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x64\signtool.exe'
+        if: always()
+
+      - name: "Upload artifacts"
+        uses: actions/upload-artifact@v3
+        with:
+          name: r-${{matrix.src}}
+          path: |
+            *.log
+            *.exe
+        if: always()

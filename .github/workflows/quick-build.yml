@@ -2,13 +2,13 @@ on:
   push:
   pull_request:
 
-name: Test quick-build script
+name: Test quick-build
 
 jobs:
-  test:
+  build:
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v2
       - name: Run quick-build script
-        run: $(cygpath ${GITHUB_WORKSPACE})/quick-build.sh
+        run: $(cygpath ${GITHUB_WORKSPACE})/build.sh
         shell: c:\rtools40\usr\bin\bash.exe --login {0}

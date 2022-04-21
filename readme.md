@@ -1,18 +1,29 @@
-# Base R Installer [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-windows/r-base?branch=master)](https://ci.appveyor.com/project/jeroen/r-base)
+# Base R Installer ![GHA Build Status](https://github.com/r-windows/r-base/actions/workflows/full-build.yml/badge.svg)
 
-> Building base R (ucrt) using rtools4
+> Scripts to build R for Windows (ucrt64) using [Rtools40](https://github.com/r-windows/rtools-installer) toolchains.
 
-Scripts to build R for Windows using [Rtools40](https://github.com/r-windows/rtools-installer) toolchains. This script was used to build official releases and dalies for R 4.0 and 4.1. However as of R 4.2.0, the official CRAN releases for R for Windows are built privately by an R-core member, but the current repository and CI system will keep working.
+This repository was used to build dailies and official releases for R 4.0.0 - 4.1.3. Sadly as of R 4.2.0, R-core has decided to go back to building the releases privately by an R-core member. Yet the current scripts and CI still work, and can be used for testing and understanding the build process.
+
+## Downloads
+
+Signed builds can be found under [releases](https://github.com/r-windows/r-base/releases). These installers are signed with a certified developer certificate, trusted by all Windows systems.
+
+The daily r-devel and r-patched installers can be found as artifacts from the workflow runs. A shortcut to the latest build can be found at:
+
+ - https://nightly.link/r-windows/r-base/workflows/full-build/master/r-devel.zip
+ - https://nightly.link/r-windows/r-base/workflows/full-build/master/r-patched.zip
+
+For the very latest svn builds, or testing patches, also checkout the r-contributor [svn-dashboard](https://contributor.r-project.org/svn-dashboard/)!
 
 ## Build requirements
 
-To build R for Windows yourself, you need:
+To build R for Windows, you need:
 
  - [rtools40](https://cran.r-project.org/bin/windows/Rtools/)
  - [InnoSetup 6](https://www.jrsoftware.org/isdl.php) (only required for installer)
  - [MikTex](https://miktex.org/download) (only required for installer)
 
-Rtools40 provides perl and all required system libraries so we no longer need any special "extsoft".
+Rtools40 provides perl and all required system libraries.
 
 ## How to build yourself
 
@@ -20,14 +31,18 @@ Clone or [download](https://github.com/r-windows/r-base/archive/master.zip) this
 
 ![win10](https://user-images.githubusercontent.com/216319/73364595-1fe28080-42ab-11ea-9858-ac8c660757d6.png)
 
-### Option 1: Quick development build
+To build the latest R-devel from source, run the [`./build.sh`](build.sh) script inside the rtools40 bash shell. This will download and build a complete ucrt64 version of R-devel, but no manuals or the installer.
 
-The  [`./quick-build.sh`](quick-build.sh) script shows how to build a local single-architecture version of R from a source tarball.
+This is useful if you want to test a patch for base R. You can adjust the [`./build.sh`](build.sh) script to add patches.
 
-To build, run the [`./quick-build.sh`](quick-build.sh) script inside the rtools40 bash shell. This will build a complete ucrt 64-bit version of R, but not manuals or the installer.
+### Building the full installer
 
-This is useful if you want to test a patch for base R. You can adjust the [`./quick-build.sh`](quick-build.sh) script to add patches.
+Alternatively to build the complete installer as it would appear on CRAN, set an environment variable `build_installer` when running the build script:
 
-### Option 2: build full installer
+```sh
+# Run in rtools40 shell
+export build_installer=1
+./build.sh
+```
 
-Alternatively run [`./full-build.sh`](full-build.sh) to build the complete installer as it would appear on CRAN. This requires you have innosetup and latex installed on your machine (in addition to rtools40). The process involves building R as well as pdf manuals and finally the installer program.
+This requires you have innosetup and latex installed on your machine (in addition to rtools40). The process involves building R as well as pdf manuals and finally the installer program.
