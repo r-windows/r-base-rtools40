@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        src: [ 'devel', 'patched' ]
+        src: [ '4.2.1' ]
     steps:
       - name: checkout
         uses: actions/checkout@v2
