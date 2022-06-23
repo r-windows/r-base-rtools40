@@ -8,11 +8,6 @@ This repository was used to build dailies and official releases for R 4.0.0 - 4.
 
 Signed builds can be found under [releases](https://github.com/r-windows/r-base/releases). These installers are signed with a certified developer certificate, trusted by all Windows systems.
 
-The daily r-devel and r-patched installers can be found as artifacts from the workflow runs. A shortcut to the latest build can be found at:
-
- - https://nightly.link/r-windows/r-base/workflows/full-build/master/r-devel.zip
- - https://nightly.link/r-windows/r-base/workflows/full-build/master/r-patched.zip
-
 For the very latest svn builds, or testing patches, also checkout the r-contributor [svn-dashboard](https://contributor.r-project.org/svn-dashboard/)!
 
 ## Build requirements
